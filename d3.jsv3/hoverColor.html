@@ -1,330 +1,336 @@
 <html>
+
 <head>
-  <title>force layout</title>
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <style id="compiled-css" type="text/css">
+   <title>force layout</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+   <style id="compiled-css" type="text/css">
       @charset "utf-8";
-/* CSS Document */
-.link10 { 
-   stroke: #ccc; 
-   stroke-width: 2px; 
-   stroke-dasharray: 3, 3; 
-}
-.link1 { 
-   stroke: #000; 
-   stroke-width: 2px;}
-.nodetext { 
-    pointer-events: none;
-}
-.node.type1 {
-  fill:#aa169e;
-}
-.node.type2 {
-  fill:#10797c;
-}
-.node.type3 {
-  fill:#E5B96F;
-}
-.node.type4 {
-  fill:#FFFFFF;
-  stroke:#1695A3;
-  stroke-width: 3px;
-}
-.node.type5 {
-   fill:#1BC9E0;
-}
-.node.type6 {
-   fill:#E01B98;
-}
-image.circle {
-   cursor:pointer;
-}
-.fadein{
-display:none;
-font-size:20px;
-}
-.rectD{
-background-color:#000000;
-width:70px;
-height:30px
-}
-.rectL{
-background-color:#000000;
-width:90px;
-height:30px
-}
-    
-  </style>
+
+      /* CSS Document */
+      .link10 {
+         stroke: rgb(226, 57, 57);
+         stroke-width: 2px;
+         stroke-dasharray: 3, 3;
+      }
+
+      .link1 {
+         stroke: #000;
+         stroke-width: 1px;
+      }
+
+      .nodetext {
+         pointer-events: none;
+         fill: black;
+         font-family: 'Roboto', sans-serif;
+      }
+
+      .node.type1 {
+         fill: #aa169e;
+      }
+
+      .node.type2 {
+         fill: #10797c;
+      }
+
+      .node.type3 {
+         fill: #E5B96F;
+      }
+
+      body {
+         display: flex;
+         flex-direction: row-reverse;
+         justify-content: start;
+         align-items: center;
+      }
+   </style>
 </head>
+
 <body>
-    <script src="https://d3js.org/d3.v2.js?2.9.1"></script>
-<script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
-    <script type='text/javascript'>
-var data = {
-        "nodes":[
-                     {"name":"YHO", "full_name":"Yahoo", "type":1, "slug": "www.yahoo.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//0   
-                     {"name":"GGL", "full_name":"Google", "type":2, "slug": "www.google.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//1
-                     {"name":"BNG", "full_name":"Bing", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//2
-                     {"name":"YDX", "full_name":"Yandex", "type":2, "slug": "www.yandex.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//3
-                     {"name":"Desc1", "type":4, "slug": "", "entity":"description"},//4
-                     {"name":"Desc2", "type":4, "slug": "", "entity":"description"},//5
-                     {"name":"Desc4", "type":4, "slug": "", "entity":"description"},//6
-                     {"name":"CEO", "prefix":"Mr.", "fst_name":"Jim", "snd_name":"Bean", "type":3, "slug": "", "entity":"employee"},//7
-                     {"name":"ATT", "prefix":"Ms.", "fst_name":"Jenna", "snd_name":"Jameson", "type":3, "slug": "", "entity":"employee"},//8
-                     {"name":"CTO", "prefix":"Mr.", "fst_name":"Lucky", "snd_name":"Luke", "type":3, "slug": "", "entity":"employee"},//9
-                     {"name":"CDO", "prefix":"Ms.", "fst_name":"Pamela", "snd_name":"Anderson", "type":3, "slug": "", "entity":"employee"},//10
-                     {"name":"CEO", "prefix":"Mr.", "fst_name":"Nacho", "snd_name":"Vidal", "type":3, "slug": "", "entity":"employee"},//11
-                     {"name":"Alquiler", "full_name":"Alquiler", "type":1, "slug": "www.yahoo.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//12
-                     {"name":"Oferta", "full_name":"Oferta", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//13
-                     {"name":"Inversiones", "full_name":"Arrendatario", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//14
-                     {"name":"Arrendador", "full_name":"Arrendador", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//15
-                     {"name":"Arrendatario", "full_name":"Arrendador", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//16
-                     {"name":"Sr.x", "full_name":"Sr.x", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//17   Sr.x
-                     {"name":"Sr.Z", "full_name":"Sr.y", "type":2, "slug": "www.bing.com", "entity":"company", "img_hrefD":"", "img_hrefL":""},//18   Sr.x
-                  ],
-        "links":[
-                     {"source":0,"target":4,"value":1,"distance":5},
-                     {"source":0,"target":5,"value":1,"distance":5},
-                     {"source":0,"target":6,"value":1,"distance":5},
-                     {"source":1,"target":4,"value":1,"distance":5},
-                     {"source":2,"target":5,"value":1,"distance":5},
-                     {"source":3,"target":6,"value":1,"distance":5},
-                     {"source":7,"target":3,"value":10,"distance":6},
-                     {"source":8,"target":3,"value":10,"distance":6},
-                     {"source":9,"target":1,"value":10,"distance":6},
-                     {"source":10,"target":1,"value":10,"distance":6},
-                     {"source":11,"target":2,"value":10,"distance":6},
-                     {"source":12,"target":13,"value":1,"distance":7},
-                     {"source":12,"target":14,"value":1,"distance":6},
-                     {"source":12,"target":15,"value":1,"distance":10},
-                     {"source":12,"target":16,"value":1,"distance":6},
-                     {"source":15,"target":17,"value":1,"distance":6},
-                     {"source":15,"target":18,"value":1,"distance":6},
-                ]
-               }
-      var w = 560,
-         h = 500,
+   <img width="150" height="150"></img>
+   <button id="btnRestart">Inicio</button>
+   <script src="https://d3js.org/d3.v2.js?2.9.1"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+   <script type='text/javascript'>
+      var expand = false;
+      var data = {
+         "nodes": [
+            {
+               "name": "Alquiler", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//0
+               "links": [
+                  { "source": 0, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 0, "target": 2, "value": 1, "distance": 5 },
+                  { "source": 0, "target": 3, "value": 1, "distance": 15 },
+                  { "source": 0, "target": 4, "value": 1, "distance": 10 },
+
+               ]
+            },//12
+            { "name": "Oferta", "r": 10, "type": 2, "img": "alquiler.png" },//1
+            { "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png" },//2
+            {
+               "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png",
+               "links": [
+                  { "source": 3, "target": 5, "value": 10, "distance": 10 },
+                  { "source": 3, "target": 6, "value": 10, "distance": 10 },
+               ]
+            },//3
+            { "name": "Arrendatario", "r": 10, "type": 2 },//4
+            { "name": "Sr.x", "r": 10, "type": 2 },//5
+            { "name": "Sr.Z", "r": 10, "type": 2 },//6
+         ],
+         "links": [
+
+         ]
+      }
+      var w = 560, h = 500,
          radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
       var vis = d3.select("body").append("svg:svg")
          .attr("width", w)
          .attr("height", h);
-         //vis.append("defs").append("marker")
-         //.attr("id", "arrowhead")
-         //.attr("refX", 22 + 3) /*must be smarter way to calculate shift*/
-         //.attr("refY", 2)
-         //.attr("markerWidth", 6)
-         //.attr("markerHeight", 4)
-         //.attr("orient", "auto")
-         //.append("path")
-            //.attr("d", "M 0,0 V 4 L6,2 Z"); //this is actual shape for arrowhead
-      //d3.json(data, function(json) {
-         var force = self.force = d3.layout.force()
-            .nodes(data.nodes)
-            .links(data.links)
-            .linkDistance(function(d) { return (d.distance*12); })
-            //.friction(0.5)
-            .charge(-250)
-            .size([w, h])
-            .start();
-         var link = vis.selectAll("line.link")
-            .data(data.links)
-            .enter().append("svg:line")
-            .attr("class", function (d) { return "link" + d.value +""; })
-            .attr("x1", function(d) { return d.source.x; })
-            .attr("y1", function(d) { return d.source.y; })
-            .attr("x2", function(d) { return d.target.x; })
-            .attr("y2", function(d) { return d.target.y; })
-            .attr("marker-end", function(d) {
-                                       if (d.value == 1) {return "url(#arrowhead)"}
-                                       else    { return " " }
-                                    ;});
-            function fade(opacity) {
-                    link.style("opacity", function(d) {
-                        return d.source === d || d.target === d ? 1 : opacity;
-                    });
-                }
-         function openLink() {
-            return function(d) {
-               var url = "";
-               if(d.slug != "") {
-                  url = d.slug
-               } //else if(d.type == 2) {
-                  //url = "clients/" + d.slug
-               //} else if(d.type == 3) {
-                  //url = "agencies/" + d.slug
-               //}
-               window.open("//"+url)
+
+      var force = self.force = d3.layout.force()
+         .nodes(data.nodes)
+         .links(data.links)
+         .linkDistance(function (d) { return (d.distance * 12); })
+         //.friction(0.5)
+         .charge(-250)
+         .size([w, h])
+         .start();
+
+      var link = vis.selectAll("line.link")
+         .data(data.links)//data
+         .enter().append("svg:line")
+         .attr("class", function (d) { return "link" + d.value + ""; })
+         .attr("x1", function (d) { return d.source.x; })
+         .attr("y1", function (d) { return d.source.y; })
+         .attr("x2", function (d) { return d.target.x; })
+         .attr("y2", function (d) { return d.target.y; })
+
+      function fade(opacity) {
+         link.style("opacity", function (d) {
+            return d.source === d || d.target === d ? 1 : opacity;
+         });
+      }
+
+      var lines = vis.append('g').attr('class', 'lines');
+      var nodes = vis.append('g').attr('class', 'nodes');
+      var texts = vis.append('g').attr('class', 'texts');
+
+      var node = d3.select(".nodes").selectAll("circle.node")
+         .data(data.nodes)
+         .enter()
+         .append("circle")
+         .attr("class", function (d) { return "node type" + d.type })
+         .attr("r", function (d) {
+            return d.r
+         })
+         .call(force.drag)
+      console.warn(node);
+      d3.select("body").select("svg")
+         .on('click', function (d) {
+            //console.error(d3.event.target);
+            if (d3.event.target == "svg" && expand) {
+               data.links = [];
+               console.warn(data.links);
+               vis.selectAll("line").remove()
+               force.nodes(data.nodes).links(data.links).start();
+               expand = false;
+               return;
             }
-         }
-         var node = vis.selectAll("g.node")
-            .data(data.nodes)
-           .enter().append("svg:g")
-            .attr("class", "node")
-            .call(force.drag);
-         node.append("circle")
-              .attr("class", function(d){ return "node type"+d.type})
-            .attr("r",function(d){if(d.entity == "description"){ return 6 } else { return 25 }})
-            //.on("mouseover", expandNode);
-            //.style("fill", function(d) { return fill(d.type); })
-         node.append("svg:image")
-            .attr("class", function(d){ return "circle img_"+d.name })
-            .attr("xlink:href", function(d){ return d.img_hrefD})
-            .attr("x", "-36px")
-            .attr("y", "-36px")
-            .attr("width", "70px")
-            .attr("height", "70px")
-            .on("click", openLink())
-            .on("mouseover", function (d) { if(d.entity == "company")
-                                       {
-                   d3.select(this).attr("width", "90px")
-                                 .attr("x", "-46px")
-                              .attr("y", "-36.5px")
-                              .attr("xlink:href", function(d){ return d.img_hrefL});
-                                       }
-               })
-            .on("mouseout", function (d) { if(d.entity == "company")
-                                    {
-                   d3.select(this).attr("width", "70px")
-                              .attr("x", "-36px")
-                              .attr("y", "-36px")
-                              .attr("xlink:href", function(d){ return d.img_hrefD});
-                                    }
-               });
-         node.append("text")
-            .attr("class", function(d){ return "nodetext title_"+d.name })
-            .attr("dx", 0)
-            .attr("dy", ".35em")
-            .style("font-size","10px")
-            .attr("text-anchor", "middle")
-            .style("fill", "white")
-            .text(function(d) { if (d.entity != "description"){return d.name} });
-         node.on("mouseover", function (d) {
-            link.style('stroke-width', function(l) {
-                if (d === l.source || d === l.target)
-                return 4;
-              else
-                return 2;
+         })
+      var text = d3.select(".texts")
+         .selectAll("text")
+         .data(data.nodes)
+         .enter()
+         .append("text")
+         .attr("class", function (d) { return "nodetext title_" + d.name })
+         .attr("dx", function (d) { return d.x + d.r; })
+         .attr("dy", function (d) { return d.y + d.r; })
+         .style("font-size", "10px")
+         // .attr("text-anchor", "middle")
+         .style("fill", "black")
+         .text(function (d) {
+            if (d.parent) {
+               return d.name
+            }
+            else {
+               return ""
+            }
+         });
+      node.on("mouseover", function (d) {
+         //d3.select(this).style("fill", "black")
+         // link.style('stroke-width', function (l) {
+         //    if (d === l.source || d === l.target)
+         //       return 2;
+         //    else
+         //       return 1;
+         // });
+         if (!d.parent && typeof d.links != "undefined" && expand) {
+            d.links.forEach(element => {
+               data.links.push(element);
             });
-               if (d.entity == "company"){
-               d3.select(this).select('text')
-                  .transition()
-                  .duration(300)
-                  .text(function(d){
-                        return d.full_name;
-                     })
-                  .style("font-size","15px")
+            force.links(data.links).start();
+            console.warn(d.links);
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            link = d3.select('.lines').selectAll("line.link")
+               .data(data.links)//data
+               .enter().append("svg:line")
+               .attr("data-parent", function (d) {
+                  console.warn(d);
+                  return d.source.index;
+               })
+               .attr("class", function (d) { return "link" + d.value + ""; })
+               .attr("x1", function (d) {
+                  console.log(d.source.x);
+                  return d.source.x;
+               })
+               .attr("y1", function (d) { return d.source.y; })
+               .attr("x2", function (d) { return d.target.x; })
+               .attr("y2", function (d) { return d.target.y; })
+         }
+
+
+         d3.select(this)
+            .select("circle")
+            .transition()
+            .duration(200)
+            .attr("r", function (d) {
+               return d.r * 1.5;
+            });
+         d3.select(this).select('text')
+            .transition()
+            .duration(300)
+            .style("font-size", "15px")
+            .text(function (d) {
+               return d.name
             }
-            else if(d.entity == "employee"){
-               var asdf = d3.select(this);
-                  asdf.select('text').remove();
-                  asdf.append("text")
-                     .text(function(d){return d.prefix + ' ' + d.fst_name })
-                     .attr("class","nodetext")
-                     .attr("dx", 0)
-                     .attr("dy", ".35em")
-                     .style("font-size","5px")
-                     .attr("text-anchor", "middle")
-                     .style("fill", "white")
-                        // .transition()
-                        // .duration(300)
-                                .style("font-size","12px");
-                    asdf.append("text").text(function(d){return d.snd_name })
-                                .attr("class","nodetext")
-                                .attr("transform","translate(0, 12)")
-                                .attr("dx", 0)
-                                .attr("dy", ".35em")
-                                .style("font-size","5px")
-                                .attr("text-anchor", "middle")
-                                .style("fill", "white")
-                                .transition()
-                                .duration(300)
-                                .style("font-size","12px");
-            }
-            else {
-               d3.select(this).select('text')
-                  .transition()
-                  .duration(300)
-                  .style("font-size","15px")
-            }
-             if (d.entity == "company") {
-               d3.select(this).select('image')
-                  .attr("width", "90px")
-                  .attr("x", "-46px")
-                  .attr("y", "-36.5px")
-                  .attr("xlink:href", function (d) {
-                     return d.img_hrefL
-                        });
-              }
-            if (d.entity == "company") {
-               d3.select(this).select('circle')
-                           .transition()
-                           .duration(300)
-                           .attr("r",28)
-            }
-            else if (d.entity == "employee"){
-               d3.select(this).select('circle')
-                           .transition()
-                           .duration(300)
-                           .attr("r",32)
-            }
-          })
-          node.on("mouseout", function (d) {
-            link.style('stroke-width', 2);
-            if (d.entity == "company") {
-               d3.select(this).select('text')
-                  .transition()
-                  .duration(300)
-                  .text(function(d){return d.name;})
-                  .style("font-size","10px")
-               }
-            else if(d.entity == "employee"){
-                    ///////////////////////////
-                    // CHANGE
-                    ///////////////////////////
-                    d3.select(this).selectAll('text').remove();
-               //d3.select(this).select('text')
-                    d3.select(this).append('text')
-                  .text(function(d){return d.name;})
-                  .style("font-size","14px")
-                       .attr("dx", 0)
-                        .attr("dy", ".35em")
-                        .attr("text-anchor", "middle")
-                        .style("fill", "white")
-                        .attr("class","nodetext")
-                       .transition()
-                  .duration(300)
-                  .style("font-size","10px")
-            }
-            else {
-               d3.select(this).select('text')
-                  .transition()
-                  .duration(300)
-                  .style("font-size","10px")
-            }
-             if (d.entity == "company") {
-               d3.select(this).select('image')
-                  .attr("width", "70px")
-                  .attr("x", "-36px")
-                  .attr("y", "-36px")
-                  .attr("xlink:href", function (d) {
-                  return d.img_hrefD
+            );
+         document.querySelector('img').setAttribute('src', d.img);
+      })
+      node.on('click', function (d) {
+         console.log(d.links);
+         if (expand && d.parent) {
+            data.links = [];
+            console.warn(data.links);
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            expand = false;
+            return;
+         }
+
+         expand = true;
+         d.links.forEach(element => {
+            data.links.push(element);
+         });
+         force.links(data.links).start();
+         console.warn(d.links);
+         vis.selectAll("line").remove()
+         force.nodes(data.nodes).links(data.links).start();
+         link = d3.select('.lines').selectAll("line.link")
+            .data(data.links)//data
+            .enter().append("svg:line")
+            .attr("class", function (d) { return "link" + d.value + ""; })
+            .attr("x1", function (d) {
+               console.log(d.source.x);
+               return d.source.x;
+            })
+            .attr("y1", function (d) { return d.source.y; })
+            .attr("x2", function (d) { return d.target.x; })
+            .attr("y2", function (d) { return d.target.y; })
+      })
+      node.on("mouseout", function (d) {
+         //link.style('stroke-width', 2);
+         if (expand && typeof d.links != "undefined" && !d.parent) {
+
+            document.querySelectorAll(`[data-parent='${d.index}']`)
+               .forEach(element => {
+                  element.remove();
                });
+            data.links = data.links.filter(item => {
+               return item.source.index != d.index
+            })
+
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            link = d3.select('.lines').selectAll("line.link")
+               .data(data.links)//data
+               .enter().append("svg:line")
+               .attr("class", function (d) { return "link" + d.value + ""; })
+               .attr("x1", function (d) {
+                  console.log(d.source.x);
+                  return d.source.x;
+               })
+               .attr("y1", function (d) { return d.source.y; })
+               .attr("x2", function (d) { return d.target.x; })
+               .attr("y2", function (d) { return d.target.y; })
+         }
+
+         d3.select(this).select('text')
+            .transition()
+            .duration(300)
+            .text(function (d) {
+               if (d.parent) {
+                  return d.name
+               }
+               else {
+                  return ""
+               }
+            })
+            .style("font-size", "10px")
+         d3.select(this).select('circle')
+            .transition()
+            .duration(200)
+            .attr("r", function (d) {
+               return d.r;
+            });
+         d3.select(this).select('text')
+            .transition()
+            .duration(300)
+            .style("font-size", "10px")
+            .text(function (d) {
+               return d.name
             }
-            if (d.entity == "company" || d.entity == "employee") {
-               d3.select(this).select('circle')
-                           .transition()
-                           .duration(300)
-                           .attr("r",25)
+            );
+
+      });
+      force.on("tick", function (d) {
+         // console.log(d)
+         link.attr("x1", function (d) { return d.source.x; })
+            .attr("y1", function (d) { return d.source.y; })
+            .attr("x2", function (d) { return d.target.x; })
+            .attr("y2", function (d) { return d.target.y; });
+         node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
+
+         text
+            .transition()
+            .duration(300)
+            .style("font-size", "10px")
+            .text(function (d) {
+               if (d.parent || expand) {
+                  return d.name
+               } else {
+                  return ""
+               }
             }
-         });
-         force.on("tick", function() {
-           link.attr("x1", function(d) { return d.source.x; })
-              .attr("y1", function(d) { return d.source.y; })
-              .attr("x2", function(d) { return d.target.x; })
-              .attr("y2", function(d) { return d.target.y; });
-           node.attr("transform", function(d) { return "translate(" + d.x + "," + d.y + ")"; });
-         });
+            )
+
+         text
+            .attr("dx", function (d) { return d.x + d.r; })
+            .attr("dy", function (d) { return d.y - d.r; });
+         // node.attr("dx", fu;
+      });
       //});
-  </script>
+      btnRestart.addEventListener('click', function () {
+         data.links = [];
+         console.warn(data.links);
+         vis.selectAll("line").remove()
+         force.nodes(data.nodes).links(data.links).start();
+         expand = false;
+      })
+   </script>
 </body>
+
 </html>
