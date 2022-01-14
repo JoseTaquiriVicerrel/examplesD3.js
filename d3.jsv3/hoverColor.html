@@ -179,7 +179,7 @@
             console.log("eliminar child - Alquiler")
             expand = false;
          }
-         else if (expandChild && typeof d.links != "undefined" && d.parentChild) {
+         else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild) {
             document.querySelectorAll(`[data-parent='${d.index}']`)
                .forEach(element => {
                   element.remove();
@@ -230,7 +230,7 @@
             console.log("Cerrar _ Childs")
             expandChild = false;
          }
-         else if (d.parentChild == true && typeof d.links != "undefined" && !expandChild) {
+         else if (d.parentChild == true && typeof d.links != "undefined" && !expandChild && expand) {
             d.links.forEach(element => {
                data.links.push(element);
             });
