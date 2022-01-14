@@ -12,18 +12,24 @@
       /* CSS Document */
       .link10 {
          stroke: rgb(226, 57, 57);
-         stroke-width: 2px;
+         stroke-width: 1px;
          stroke-dasharray: 3, 3;
       }
 
+      .link3 {
+         stroke: rgb(227, 241, 28);
+         stroke-width: 1px;
+         stroke-dasharray: 1, 8;
+      }
+
       .link1 {
-         stroke: #000;
+         stroke: rgb(121, 235, 98);
          stroke-width: 1px;
       }
 
       .nodetext {
          pointer-events: none;
-         fill: black;
+         fill: rgb(247, 247, 247);
          font-family: 'Roboto', sans-serif;
       }
 
@@ -44,6 +50,7 @@
          flex-direction: row-reverse;
          justify-content: start;
          align-items: center;
+         background-color: #000;
       }
    </style>
 </head>
@@ -69,17 +76,21 @@
                ]
             },//12
             { "name": "Oferta", "r": 10, "type": 2, "img": "alquiler.png" },//1
-            { "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true },//2
+            {
+               "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+            },//2
             {
                "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
                   { "source": 3, "target": 5, "value": 10, "distance": 10 },
                   { "source": 3, "target": 6, "value": 10, "distance": 10 },
+                  { "source": 3, "target": 7, "value": 3, "distance": 15 },
                ]
             },//3
             { "name": "Arrendatario", "r": 10, "type": 2 },//4
             { "name": "Sr.x", "r": 10, "type": 2 },//5
             { "name": "Sr.Z", "r": 10, "type": 2 },//6
+            { "name": "Salarios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true, }//7
          ],
          "links": [
 
@@ -150,7 +161,7 @@
          .attr("dy", function (d) { return d.y + d.r; })
          .style("font-size", "10px")
          // .attr("text-anchor", "middle")
-         .style("fill", "black")
+         .style("fill", "white")
          .text(function (d) {
             if (d.parent) {
                return d.name
