@@ -9,6 +9,11 @@
    <style id="compiled-css" type="text/css">
       @charset "utf-8";
 
+      @font-face {
+         font-family: 'NexaDemo-Bold';
+         src: url('../Fonts/NexaDemo-Bold.woff');
+      }
+
       /* CSS Document */
       .link10 {
          stroke: rgb(226, 57, 57);
@@ -30,7 +35,9 @@
       .nodetext {
          pointer-events: none;
          fill: rgb(247, 247, 247);
-         font-family: 'Roboto', sans-serif;
+         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;
+         font-weight: bold;
+         letter-spacing: 2px;
       }
 
       .node.type1 {
@@ -46,12 +53,21 @@
       }
 
       body {
+         height: 100vh;
+         margin: 0;
+         /* width: 100%; */
          display: flex;
          flex-direction: row-reverse;
-         justify-content: start;
+         justify-content: center;
          align-items: center;
          background-color: #000;
       }
+
+      /* body,
+      html {
+         width: 100%;
+         height: 100%;
+      } */
    </style>
 </head>
 
@@ -63,50 +79,101 @@
    <script type='text/javascript'>
       var expand = false;
       var expandChild = false;
+      var indexExpand;
       var data = {
          "nodes": [
             {
                "name": "Alquiler", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//0
                "links": [
-                  { "source": 0, "target": 1, "value": 1, "distance": 15 },
-                  { "source": 0, "target": 2, "value": 1, "distance": 5 },
-                  { "source": 0, "target": 3, "value": 1, "distance": 15 },
+                  { "source": 0, "target": 1, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 2, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 3, "value": 1, "distance": 10 },
                   { "source": 0, "target": 4, "value": 1, "distance": 10 },
-
                ]
-            },//12
+            },
             { "name": "Oferta", "r": 10, "type": 2, "img": "alquiler.png" },//1
+            { "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, },//2
             {
-               "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
-            },//2
-            {
-               "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,//
                "links": [
                   { "source": 3, "target": 5, "value": 10, "distance": 10 },
                   { "source": 3, "target": 6, "value": 10, "distance": 10 },
                   { "source": 3, "target": 7, "value": 3, "distance": 15 },
                ]
-            },//3
+            },
             { "name": "Arrendatario", "r": 10, "type": 2 },//4
             { "name": "Sr.x", "r": 10, "type": 2 },//5
             { "name": "Sr.Z", "r": 10, "type": 2 },//6
-            { "name": "Salarios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true, }//7
+            {
+               "name": "Salarios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//7
+               "links": [
+                  { "source": 7, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 7, "target": 4, "value": 1, "distance": 5 },
+                  { "source": 7, "target": 2, "value": 1, "distance": 15 },
+                  { "source": 7, "target": 3, "value": 1, "distance": 10 },
+               ]
+            },
+            {
+               "name": "Impuestos", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//8
+               "links": [
+                  { "source": 8, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 8, "target": 4, "value": 1, "distance": 5 },
+                  { "source": 8, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 8, "target": 3, "value": 1, "distance": 10 },
+               ]
+            },//7
+            {
+               "name": "Industria", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//9
+               "links": [
+                  { "source": 9, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 9, "target": 4, "value": 1, "distance": 5 },
+                  { "source": 9, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 9, "target": 2, "value": 1, "distance": 10 },
+               ]
+            },//7
+            {
+               "name": "Energia", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//10
+               "links": [
+                  { "source": 10, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 4, "value": 1, "distance": 5 },
+                  { "source": 10, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 2, "value": 1, "distance": 10 },
+               ]
+            },//7
+            {
+               "name": "Medios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//11
+               "links": [
+                  { "source": 11, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 11, "target": 4, "value": 1, "distance": 5 },
+                  { "source": 11, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 11, "target": 2, "value": 1, "distance": 10 },
+               ]
+            },//7,
+            { "name": "A", "r": 10, "type": 2 },//4
+            { "name": "B", "r": 10, "type": 2 },//5
+            { "name": "C", "r": 10, "type": 2 },//6
+            { "name": "D", "r": 10, "type": 2 },//4
+            { "name": "E", "r": 10, "type": 2 },//5
+            { "name": "F", "r": 10, "type": 2 },//6
+            { "name": "G", "r": 10, "type": 2 },//4
+            { "name": "H", "r": 10, "type": 2 },//5
+            { "name": "I", "r": 10, "type": 2 },//6
          ],
          "links": [
-
          ]
       }
-      var w = 560, h = 500,
+      var w = 1200, h = document.documentElement.clientHeight * 0.75,
          radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
       var vis = d3.select("body").append("svg:svg")
          .attr("width", w)
-         .attr("height", h);
+         .attr("height", h)
+      // .attr("viewBox", "0 0 " + 100 + " " + 100);
 
       var force = self.force = d3.layout.force()
          .nodes(data.nodes)
          .links(data.links)
          .linkDistance(function (d) { return (d.distance * 12); })
-         .charge(-250)
+         .charge(-800)
          .size([w, h])
          .start();
 
@@ -135,7 +202,7 @@
          .append("circle")
          .attr("class", function (d) { return "node type" + d.type })
          .attr("r", function (d) {
-            return d.r
+            return d.r * 2
          })
          .call(force.drag)
       console.warn(node);
@@ -157,9 +224,15 @@
          .enter()
          .append("text")
          .attr("class", function (d) { return "nodetext title_" + d.name })
-         .attr("dx", function (d) { return d.x + d.r; })
-         .attr("dy", function (d) { return d.y + d.r; })
-         .style("font-size", "10px")
+         .attr("dx", function (d) { return d.x; })
+         .attr("dy", function (d) { return d.y + d.r + 5; })
+         .style("font-size", function (d) {
+            if (d.parent == true) {
+               return "20px";
+            } else {
+               return "15px";
+            }
+         })
          // .attr("text-anchor", "middle")
          .style("fill", "white")
          .text(function (d) {
@@ -183,12 +256,15 @@
       node.on('click', function (d) {
          //eliminar child - Alquiler
 
-         if (expand && d.parent == true) {
+         if (indexExpand == d.index && expand && d.parent == true) {
             data.links = [];
             vis.selectAll("line").remove()
+            expand = false;
+            expandChild = false;
             force.nodes(data.nodes).links(data.links).start();
             console.log("eliminar child - Alquiler")
-            expand = false;
+
+            indexExpand = -1;
          }
          else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild) {
             document.querySelectorAll(`[data-parent='${d.index}']`)
@@ -223,7 +299,13 @@
                      return ""
                   }
                })
-               .style("font-size", "10px")
+               .style("font-size", function (d) {
+                  if (d.parent == true) {
+                     return "20px";
+                  } else {
+                     return "15px";
+                  }
+               })
             d3.select(this).select('circle')
                .transition()
                .duration(200)
@@ -233,7 +315,13 @@
             d3.select(this).select('text')
                .transition()
                .duration(300)
-               .style("font-size", "10px")
+               .style("font-size", function (d) {
+                  if (d.parent == true) {
+                     return "20px";
+                  } else {
+                     return "15px";
+                  }
+               })
                .text(function (d) {
                   return d.name
                }
@@ -279,8 +367,8 @@
             //    );
             console.log("expand _ Childs")
             expandChild = true;
+            // indexExpand = d.index;
          }
-
          else if (!expand && d.parent) {
             d.links.forEach(element => {
                data.links.push(element);
@@ -302,16 +390,14 @@
                .attr("y2", function (d) { return d.target.y; })
             console.log("Expand _ Parent")
             expand = true;
+            indexExpand = d.index;
          }
          console.log("expand", expand);
          console.log("expandChild", expandChild);
+         console.log('Index', indexExpand)
       })
       node.on("mouseout", function (d) {
-         //link.style('stroke-width', 2);
-
-
-
-
+         //link.style('stroke-width', 2)
       });
       force.on("tick", function (d) {
          // console.log(d)
@@ -324,7 +410,13 @@
          text
             .transition()
             .duration(300)
-            .style("font-size", "10px")
+            .style("font-size", function (d) {
+               if (d.parent == true) {
+                  return "20px";
+               } else {
+                  return "15px";
+               }
+            })
             .text(function (d) {
                if (d.parent || expand) {
                   return d.name
@@ -339,8 +431,9 @@
             )
 
          text
-            .attr("dx", function (d) { return d.x + d.r; })
-            .attr("dy", function (d) { return d.y - d.r; });
+            // .attr('text-anchor', 'middle')
+            .attr("dx", function (d) { return d.x - d.r })
+            .attr("dy", function (d) { return d.y - d.r - 30; });
          // node.attr("dx", fu;
       });
       //});
