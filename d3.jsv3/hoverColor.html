@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 
 <head>
@@ -6,6 +7,12 @@
    <link rel="preconnect" href="https://fonts.googleapis.com">
    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
    <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css"
+      integrity="sha512-r9kUVFtJ0e+8WIL8sjTUlHGbTLwlOClXhVqGgu4sb7ILdkBvM2uI+n/Fz3FN8u3VqJX7l9HLiXqXxkx2mZpkvQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
    <style id="compiled-css" type="text/css">
       @charset "utf-8";
 
@@ -21,7 +28,7 @@
          stroke-dasharray: 3, 3;
       }
 
-      .link3 {
+      .link2 {
          stroke: rgb(227, 241, 28);
          stroke-width: 1px;
          stroke-dasharray: 1, 8;
@@ -55,7 +62,6 @@
       body {
          height: 100vh;
          margin: 0;
-         /* width: 100%; */
          display: flex;
          flex-direction: row-reverse;
          justify-content: center;
@@ -63,17 +69,55 @@
          background-color: #000;
       }
 
-      /* body,
-      html {
-         width: 100%;
+      #graph {
+         border: 1px solid #aa169e;
          height: 100%;
-      } */
+         width: 80%;
+      }
+
+      #content {
+         border: #E5B96F;
+      }
+
+      #btnRestart {
+         position: absolute;
+         right: 5%;
+         bottom: 10px;
+         height: max-content;
+         z-index: 1;
+         background-color: #E5B96F;
+         color: #000;
+         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;
+         border: none;
+         border-radius: 5px;
+         padding: 5px 10px;
+         font-size: 16px;
+         cursor: pointer;
+      }
+
+      #content {
+         border: 1px solid red;
+      }
    </style>
 </head>
 
 <body>
-   <img width="150" height="150"></img>
-   <button id="btnRestart">Inicio</button>
+   <div id="graph">
+      <svg></svg>
+   </div>
+   <div id="content">
+      <img width="150" height="150"></img>
+      <div>
+         <button>Anterior</button>
+         <button>Siguiente</button>
+
+      </div>
+   </div>
+
+   <button id="btnRestart">
+      <i class="fas fa-redo-alt"></i>
+      Reiniciar
+   </button>
    <script src="https://d3js.org/d3.v2.js?2.9.1"></script>
    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
    <script type='text/javascript'>
@@ -91,80 +135,126 @@
                   { "source": 0, "target": 4, "value": 1, "distance": 10 },
                ]
             },
-            { "name": "Oferta", "r": 10, "type": 2, "img": "alquiler.png" },//1
-            { "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, },//2
+            {
+               "name": "Oferta - Demanda", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 1, "target": 15, "value": 1, "distance": 15 },
+                  { "source": 1, "target": 11, "value": 2, "distance": 15 },
+               ]
+            },//1
+            {
+               "name": "Constructoras", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 2, "target": 9, "value": 1, "distance": 10 },
+                  { "source": 2, "target": 1, "value": 1, "distance": 10 },
+                  { "source": 9, "target": 7, "value": 2, "distance": 10 },
+                  { "source": 2, "target": 1, "value": 2, "distance": 10 },
+               ]
+            },//2
             {
                "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,//
                "links": [
-                  { "source": 3, "target": 5, "value": 10, "distance": 10 },
-                  { "source": 3, "target": 6, "value": 10, "distance": 10 },
+                  { "source": 3, "target": 6, "value": 1, "distance": 10 },
                   { "source": 3, "target": 7, "value": 3, "distance": 15 },
                ]
             },
-            { "name": "Arrendatario", "r": 10, "type": 2 },//4
+            {
+               "name": "Inquilino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 4, "target": 5, "value": 1, "distance": 10 },
+                  { "source": 4, "target": 8, "value": 1, "distance": 10 },
+                  { "source": 4, "target": 1, "value": 1, "distance": 10 },
+               ]
+            },//4
             { "name": "Sr.x", "r": 10, "type": 2 },//5
             { "name": "Sr.Z", "r": 10, "type": 2 },//6
             {
                "name": "Salarios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//7
                "links": [
-                  { "source": 7, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 7, "target": 4, "value": 1, "distance": 5 },
-                  { "source": 7, "target": 2, "value": 1, "distance": 15 },
-                  { "source": 7, "target": 3, "value": 1, "distance": 10 },
+                  { "source": 7, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 7, "target": 10, "value": 1, "distance": 15 },
+                  { "source": 7, "target": 11, "value": 1, "distance": 15 },
+                  { "source": 7, "target": 12, "value": 1, "distance": 15 },
+                  { "source": 7, "target": 13, "value": 1, "distance": 15 },
                ]
             },
+            { "name": "Estudiante", "r": 10, "type": 2, "img": "alquiler.png" }, //!/*  */ 8
+            { "name": "Trabajador", "r": 10, "type": 2, "img": "alquiler.png" }, // 9
+            //! Salarios
             {
-               "name": "Impuestos", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//8
+               "name": "Consumidor", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
-                  { "source": 8, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 8, "target": 4, "value": 1, "distance": 5 },
-                  { "source": 8, "target": 1, "value": 1, "distance": 15 },
-                  { "source": 8, "target": 3, "value": 1, "distance": 10 },
+                  { "source": 10, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 6, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 8, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 9, "value": 1, "distance": 15 },
                ]
-            },//7
+            },//10
+            { "name": "Mercado Negro", "r": 10, "type": 2, "img": "alquiler.png" },//11
+            { "name": "MYPE", "r": 10, "type": 2, "img": "alquiler.png" },//12
+            { "name": "Desempleo", "r": 10, "type": 2, "img": "alquiler.png" },//13
             {
-               "name": "Industria", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//9
+               "name": "Subsidios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,
                "links": [
-                  { "source": 9, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 9, "target": 4, "value": 1, "distance": 5 },
-                  { "source": 9, "target": 1, "value": 1, "distance": 15 },
-                  { "source": 9, "target": 2, "value": 1, "distance": 10 },
+                  { "source": 14, "target": 1, "value": 1, "distance": 15 },
                ]
-            },//7
+            },//14
+            {
+               "name": "Inflacion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 15, "target": 10, "value": 1, "distance": 15 },
+                  { "source": 15, "target": 5, "value": 1, "distance": 15 },
+                  { "source": 15, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 15, "target": 16, "value": 1, "distance": 15 },
+               ]
+            },//15
+            {
+               "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+
+                  { "source": 16, "target": 8, "value": 1, "distance": 15 },
+                  { "source": 16, "target": 9, "value": 1, "distance": 15 },
+               ]
+            },//16
+            {
+               "name": "Impuestos", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,
+               "links": [
+                  { "source": 17, "target": 16, "value": 1, "distance": 15 },
+                  { "source": 17, "target": 18, "value": 1, "distance": 15 },
+               ]
+            },//17
+            {
+               "name": "Destino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 18, "target": 14, "value": 2, "distance": 15 },
+                  { "source": 18, "target": 16, "value": 2, "distance": 15 },
+               ]
+            },//18
             {
                "name": "Energia", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//10
                "links": [
-                  { "source": 10, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 10, "target": 4, "value": 1, "distance": 5 },
-                  { "source": 10, "target": 1, "value": 1, "distance": 15 },
-                  { "source": 10, "target": 2, "value": 1, "distance": 10 },
+                  { "source": 19, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 19, "target": 10, "value": 1, "distance": 15 },
+
                ]
-            },//7
-            {
-               "name": "Medios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//11
-               "links": [
-                  { "source": 11, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 11, "target": 4, "value": 1, "distance": 5 },
-                  { "source": 11, "target": 1, "value": 1, "distance": 15 },
-                  { "source": 11, "target": 2, "value": 1, "distance": 10 },
-               ]
-            },//7,
-            { "name": "A", "r": 10, "type": 2 },//4
-            { "name": "B", "r": 10, "type": 2 },//5
-            { "name": "C", "r": 10, "type": 2 },//6
-            { "name": "D", "r": 10, "type": 2 },//4
-            { "name": "E", "r": 10, "type": 2 },//5
-            { "name": "F", "r": 10, "type": 2 },//6
-            { "name": "G", "r": 10, "type": 2 },//4
-            { "name": "H", "r": 10, "type": 2 },//5
-            { "name": "I", "r": 10, "type": 2 },//6
+            },//19
+            // {
+            //    "name": "Medios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//11
+            //    "links": [
+            //       { "source": 11, "target": 5, "value": 1, "distance": 15 },
+            //       { "source": 11, "target": 4, "value": 1, "distance": 5 },
+            //       { "source": 11, "target": 1, "value": 1, "distance": 15 },
+            //       { "source": 11, "target": 2, "value": 1, "distance": 10 },
+            //    ]
+            // },//7,
+
          ],
          "links": [
          ]
       }
       var w = 1200, h = document.documentElement.clientHeight * 0.75,
          radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
-      var vis = d3.select("body").append("svg:svg")
+      var vis = d3.select("body").select("svg")
          .attr("width", w)
          .attr("height", h)
       // .attr("viewBox", "0 0 " + 100 + " " + 100);
@@ -172,7 +262,11 @@
       var force = self.force = d3.layout.force()
          .nodes(data.nodes)
          .links(data.links)
-         .linkDistance(function (d) { return (d.distance * 12); })
+         .linkDistance(function (d) {
+            var num = Math.floor(Math.random() * (30 - 10)) + 10;
+            return (
+               num * 12);
+         })
          .charge(-800)
          .size([w, h])
          .start();
@@ -385,9 +479,9 @@
                   // console.log(d.source.x);
                   return d.source.x;
                })
-               .attr("y1", function (d) { return d.source.y; })
-               .attr("x2", function (d) { return d.target.x; })
-               .attr("y2", function (d) { return d.target.y; })
+            //    .attr("y1", function (d) { return d.source.y; })
+            //    .attr("x2", function (d) { return d.target.x; })
+            //    .attr("y2", function (d) { return d.target.y; })
             console.log("Expand _ Parent")
             expand = true;
             indexExpand = d.index;
@@ -406,7 +500,6 @@
             .attr("x2", function (d) { return d.target.x; })
             .attr("y2", function (d) { return d.target.y; });
          node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; });
-
          text
             .transition()
             .duration(300)
@@ -429,7 +522,6 @@
                }
             }
             )
-
          text
             // .attr('text-anchor', 'middle')
             .attr("dx", function (d) { return d.x - d.r })
