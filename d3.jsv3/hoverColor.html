@@ -62,7 +62,7 @@
          height: 100vh;
          margin: 0;
          display: flex;
-         flex-direction: row-reverse;
+         flex-direction: row;
          justify-content: center;
          align-items: center;
          background-color: #000;
@@ -100,6 +100,7 @@
       }
 
       #content {
+
          border: 1px solid red;
       }
 
@@ -169,6 +170,7 @@
       var childs = [];
       var dataChild = [];
       var childsParent = [];
+      var childsList = [];
       var data = {
          "nodes": [
             {
@@ -186,16 +188,18 @@
                "links": [
                   { "source": 1, "target": 15, "value": 1, "distance": 15 },
                   { "source": 1, "target": 11, "value": 2, "distance": 15 },
-               ]
+               ],
+               "childs": [15, 11]
             },//1
             {
                "name": "Constructoras", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
                "links": [
                   { "source": 2, "target": 9, "value": 1, "distance": 10 },
                   { "source": 2, "target": 1, "value": 1, "distance": 10 },
-                  { "source": 9, "target": 7, "value": 2, "distance": 10 },
-                  { "source": 2, "target": 1, "value": 2, "distance": 10 },
-               ]
+                  // { "source": 9, "target": 7, "value": 2, "distance": 10 },
+                  // { "source": 2, "target": 1, "value": 2, "distance": 10 },
+               ],
+               "childs": [9, 1]
             },//2
             {
                "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,//3
@@ -211,7 +215,8 @@
                   { "source": 4, "target": 5, "value": 1, "distance": 10 },
                   { "source": 4, "target": 8, "value": 1, "distance": 10 },
                   { "source": 4, "target": 1, "value": 1, "distance": 10 },
-               ]
+               ],
+               "childs": [5, 8, 1]
             },//4
             { "name": "Sr.x", "r": 10, "type": 2 },//5
             { "name": "Sr.Z", "r": 10, "type": 2 },//6
@@ -236,7 +241,8 @@
                   { "source": 10, "target": 6, "value": 1, "distance": 15 },
                   { "source": 10, "target": 8, "value": 1, "distance": 15 },
                   { "source": 10, "target": 9, "value": 1, "distance": 15 },
-               ]
+               ],
+               "childs": [5, 6, 8, 9]
             },//10
             { "name": "Mercado Negro", "r": 10, "type": 2, "img": "alquiler.png" },//11
             { "name": "MYPE", "r": 10, "type": 2, "img": "alquiler.png" },//12
@@ -245,7 +251,8 @@
                "name": "Subsidios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,
                "links": [
                   { "source": 14, "target": 1, "value": 1, "distance": 15 },
-               ]
+               ],
+               "childs": [1]
             },//14
             {
                "name": "Inflacion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
@@ -254,7 +261,8 @@
                   { "source": 15, "target": 5, "value": 1, "distance": 15 },
                   { "source": 15, "target": 9, "value": 1, "distance": 15 },
                   { "source": 15, "target": 16, "value": 1, "distance": 15 },
-               ]
+               ],
+               "childs": [10, 5, 9, 16]
             },//15
             {
                "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
@@ -262,29 +270,33 @@
 
                   { "source": 16, "target": 8, "value": 1, "distance": 15 },
                   { "source": 16, "target": 9, "value": 1, "distance": 15 },
-               ]
+               ],
+               "childs": [8, 9]
+
             },//16
             {
                "name": "Impuestos", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,
                "links": [
                   { "source": 17, "target": 16, "value": 1, "distance": 15 },
                   { "source": 17, "target": 18, "value": 1, "distance": 15 },
-               ]
+               ],
+               "childs": [16, 18]
             },//17
             {
                "name": "Destino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
                   { "source": 18, "target": 14, "value": 2, "distance": 15 },
                   { "source": 18, "target": 16, "value": 2, "distance": 15 },
-               ]
+               ],
+               "childs": [14, 16]
             },//18
             {
                "name": "Energia", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//10
                "links": [
                   { "source": 19, "target": 1, "value": 1, "distance": 15 },
                   { "source": 19, "target": 10, "value": 1, "distance": 15 },
-
-               ]
+               ],
+               "childs": [1, 10]
             },//19
             // {
             //    "name": "Medios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//11
@@ -410,88 +422,47 @@
             //       childs.splice(childs.indexOf(c), 1);
             //    }
             // })
-            if (d.index != indexExpand) {
-
-            }
+            childs = []
+            dataChild = []
+            indexExpandChild = -1;
             console.warn(childs);
             data.links = [];
             vis.selectAll("line").remove()
-            expand = false;
-            expandChild = false;
             force.nodes(data.nodes).links(data.links).start();
             console.log("eliminar childs - Parent")
 
-            indexExpandChild = -1;
-            indexExpand = -1;
-         }
-         else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild) {
-            document.querySelectorAll(`[data-parent='${d.index}']`)
-               .forEach(element => {
-                  element.remove();
+            if (d.index != indexExpand) {
+               d.links.forEach(element => {
+                  data.links.push(element);
                });
-            data.links = data.links.filter(item => {
-               return item.source.index != d.index
-            })
-
-            vis.selectAll("line").remove()
-            force.nodes(data.nodes).links(data.links).start();
-            link = d3.select('.lines').selectAll("line.link")
-               .data(data.links)//data
-               .enter().append("svg:line")
-               .attr("class", function (d) { return "link" + d.value + ""; })
-               .attr("x1", function (d) {
-                  console.log(d.source.x);
-                  return d.source.x;
-               })
-               .attr("y1", function (d) { return d.source.y; })
-               .attr("x2", function (d) { return d.target.x; })
-               .attr("y2", function (d) { return d.target.y; })
-            d3.select(this).select('text')
-               .transition()
-               .duration(300)
-               .text(function (d) {
-                  if (d.parent) {
-                     return d.name
-                  }
-                  else {
-                     return ""
-                  }
-               })
-               .style("font-size", function (d) {
-                  if (d.parent == true) {
-                     return "20px";
-                  } else {
-                     return "15px";
-                  }
-               })
-            d3.select(this).select('circle')
-               .transition()
-               .duration(200)
-               .attr("r", function (d) {
-                  return d.r;
-               });
-            d3.select(this).select('text')
-               .transition()
-               .duration(300)
-               .style("font-size", function (d) {
-                  if (d.parent == true) {
-                     return "20px";
-                  } else {
-                     return "15px";
-                  }
-               })
-               .text(function (d) {
-                  return d.name
-               }
-               );
-            console.log("Cerrar _ Childs")
-            expandChild = false;
-            indexExpandChild = -1;
+               force.links(data.links).start();
+               // console.warn(d.links);
+               vis.selectAll("line").remove()
+               force.nodes(data.nodes).links(data.links).start();
+               link = d3.select('.lines').selectAll("line.link")
+                  .data(data.links)//data
+                  .enter().append("svg:line")
+                  .attr("class", function (d) { return "link" + d.value + ""; })
+                  .attr("x1", function (d) {
+                     // console.log(d.source.x);
+                     return d.source.x;
+                  })
+               console.log("Expand _ Parent")
+               expand = true;
+               indexExpand = d.index;
+               childs = data.nodes[indexExpand].childs;
+            } else {
+               expand = false;
+               expandChild = false;
+               indexExpandChild = -1;
+               indexExpand = -1;
+            }
          }
-         else if (d.parentChild == true && typeof d.links != "undefined" && !expandChild && expand) {
+         else if ((d.parentChild == true && typeof d.links != "undefined" && expand && !childsList.includes(d.index))) {
             d.links.forEach(element => {
                data.links.push(element);
             });
+            console.log(data.links)
             force.links(data.links).start();
             vis.selectAll("line").remove()
             force.nodes(data.nodes).links(data.links).start();
@@ -527,8 +498,97 @@
             console.log("expand _ Childs")
             expandChild = true;
             indexExpandChild = d.index;
-            dataChild = data.nodes[indexExpandChild].childs;
+            if (dataChild.length > 0) {
+               var newChilds = data.nodes[indexExpandChild].childs;
+               newChilds.forEach(element => {
+                  dataChild.push(element);
+               });
+            } else {
+               dataChild = data.nodes[indexExpandChild].childs;
+            }
+            childsList.push(indexExpandChild);
+            //dataChild = data.nodes[indexExpandChild].childs;
+            console.log(dataChild)
             // indexExpand = d.index;
+         }
+         else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild && childs.includes(d.index)) {
+            document.querySelectorAll(`[data-parent='${d.index}']`)
+               .forEach(element => {
+                  element.remove();
+               });
+            data.links = data.links.filter(item => {
+               return item.source.index != d.index
+            })
+            var deleteChilds = data.nodes[d.index].childs;
+            console.warn(deleteChilds);
+            dataChild = dataChild.filter(item => {
+               return !deleteChilds.includes(item)
+            })
+            console.warn(dataChild);
+            //delete childsList[d.index]
+            childsList.splice(childsList.indexOf(d.index), 1);
+            // var deleteChilds = data.nodes[d.index].childs;
+            // deleteChilds.forEach(element => {
+            //    dataChild.splice(dataChild.indexOf(element), 1);
+            // });
+            console.log(dataChild)
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            link = d3.select('.lines').selectAll("line.link")
+               .data(data.links)//data
+               .enter().append("svg:line")
+               .attr("class", function (d) { return "link" + d.value + ""; })
+               .attr("x1", function (d) {
+                  console.log(d.source.x);
+                  return d.source.x;
+               })
+               .attr("y1", function (d) { return d.source.y; })
+               .attr("x2", function (d) { return d.target.x; })
+               .attr("y2", function (d) { return d.target.y; })
+            d3.select(this).select('text')
+               .transition()
+               .duration(300)
+               .text(function (d) {
+                  if (d.parent || d.parentChild || dataChild.includes(d.index)) {
+                     return d.name
+                  }
+                  else {
+                     return "--"
+                  }
+               })
+               .style("font-size", function (d) {
+                  if (d.parent == true) {
+                     return "20px";
+                  } else {
+                     return "15px";
+                  }
+               })
+            d3.select(this).select('circle')
+               .transition()
+               .duration(200)
+               .attr("r", function (d) {
+                  return d.r;
+               });
+            d3.select(this).select('text')
+               .transition()
+               .duration(300)
+               .style("font-size", function (d) {
+                  if (d.parent == true) {
+                     return "20px";
+                  } else {
+                     return "15px";
+                  }
+               })
+               .text(function (d) {
+                  return d.name
+               }
+               );
+            console.log("Cerrar _ Childs")
+            if (dataChild.length == 0) {
+               expandChild = false;
+            }
+            indexExpandChild = -1;
+            console.log('childs', childs)
          }
          else if (!expand || d.parent) {
             d.links.forEach(element => {
@@ -546,30 +606,24 @@
                   // console.log(d.source.x);
                   return d.source.x;
                })
-            //    .attr("y1", function (d) { return d.source.y; })
-            //    .attr("x2", function (d) { return d.target.x; })
-            //    .attr("y2", function (d) { return d.target.y; })
             console.log("Expand _ Parent")
             expand = true;
             indexExpand = d.index;
-            if (childs.length > 0) {
-               childrens = data.nodes[indexExpand].childs;
-               childrens.forEach(element => {
-                  childs.push(element);
-               });
-            } else {
-               childs = data.nodes[indexExpand].childs;
-            }
-
+            childs = data.nodes[indexExpand].childs;
          }
          console.log("expand", expand);
          console.log("expandChild", expandChild);
          console.log('Index', indexExpand)
          console.log('IndexChild', indexExpandChild)
+         console.log('childs', childs, 'index=>', d.index)
+         console.log('DataChilds 2', dataChild)
+         console.log('ListExpandChilds', childsList)
       })
       node.on("mouseout", function (d) {
          //link.style('stroke-width', 2)
       });
+
+
       force.on("tick", function (d) {
          // console.log(d)
          link.attr("x1", function (d) { return d.source.x; })
@@ -596,15 +650,8 @@
                } else if (dataChild.includes(d.index) && expandChild) {
                   return d.name
                } else {
-                  return ""
+                  return "*"
                }
-               //  else if ((d.parentChild && expand)) {
-               //    return d.name
-               // } else if (expandChild) {
-               //    return ""
-               // } else {
-               //    return ""
-               // }
             }
             )
          text
