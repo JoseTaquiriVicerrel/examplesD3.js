@@ -48,6 +48,7 @@
 
       .node.type1 {
          fill: #aa169e;
+         cursor: pointer;
       }
 
       .node.type2 {
@@ -176,102 +177,109 @@
             {
                "name": "Alquiler", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//0
                "links": [
-                  { "source": 0, "target": 1, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 31, "value": 1, "distance": 10 },
                   { "source": 0, "target": 2, "value": 1, "distance": 10 },
                   { "source": 0, "target": 3, "value": 1, "distance": 10 },
                   { "source": 0, "target": 4, "value": 1, "distance": 10 },
                ],
-               "childs": [1, 2, 3, 4]
+               "childs": [31, 2, 3, 4]
             },
             {
-               "name": "Oferta - Demanda", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
+               "name": "Oferta - Demanda A*", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
                "links": [
                   { "source": 1, "target": 15, "value": 1, "distance": 15 },
-                  { "source": 1, "target": 11, "value": 2, "distance": 15 },
+                  { "source": 1, "target": 20, "value": 1, "distance": 15 },
                ],
-               "childs": [15, 11]
+               "childs": [15, 20]
             },//1
             {
                "name": "Constructoras", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
                "links": [
-                  { "source": 2, "target": 9, "value": 1, "distance": 10 },
-                  { "source": 2, "target": 1, "value": 1, "distance": 10 },
+                  { "source": 2, "target": 33, "value": 1, "distance": 10 },
+                  { "source": 2, "target": 31, "value": 1, "distance": 10 },
                   // { "source": 9, "target": 7, "value": 2, "distance": 10 },
                   // { "source": 2, "target": 1, "value": 2, "distance": 10 },
                ],
-               "childs": [9, 1]
+               "childs": [33, 31]
             },//2
             {
                "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,//3
                "links": [
                   { "source": 3, "target": 6, "value": 1, "distance": 10 },
-                  { "source": 3, "target": 7, "value": 2, "distance": 15 },
                ],
-               "childs": [6, 7]
+               "childs": [6]
             },
             {
                "name": "Inquilino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
                "links": [
+                  { "source": 4, "target": 32, "value": 1, "distance": 10 },
                   { "source": 4, "target": 5, "value": 1, "distance": 10 },
-                  { "source": 4, "target": 8, "value": 1, "distance": 10 },
-                  { "source": 4, "target": 1, "value": 1, "distance": 10 },
                ],
-               "childs": [5, 8, 1]
+               "childs": [5, 32]
             },//4
             { "name": "Sr.x", "r": 10, "type": 2 },//5
             { "name": "Sr.Z", "r": 10, "type": 2 },//6
             {
                "name": "Salarios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//7
                "links": [
-                  { "source": 7, "target": 9, "value": 1, "distance": 15 },
-                  { "source": 7, "target": 10, "value": 1, "distance": 15 },
-                  { "source": 7, "target": 11, "value": 1, "distance": 15 },
+                  // { "source": 7, "target": 9, "value": 1, "distance": 15 },
+                  // { "source": 7, "target": 10, "value": 1, "distance": 15 },
+                  // { "source": 7, "target": 11, "value": 1, "distance": 15 },
                   { "source": 7, "target": 12, "value": 1, "distance": 15 },
-                  { "source": 7, "target": 13, "value": 1, "distance": 15 },
+                  // { "source": 7, "target": 13, "value": 1, "distance": 15 },
                ],
-               "childs": [9, 10, 11, 12, 13]
+               "childs": [12]
             },
             { "name": "Estudiante", "r": 10, "type": 2, "img": "alquiler.png" }, //!/*  */ 8
-            { "name": "Trabajador", "r": 10, "type": 2, "img": "alquiler.png" }, // 9
+            {
+               "name": "TrabajadorA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 9, "target": 11, "value": 1, "distance": 10 },
+                  { "source": 9, "target": 17, "value": 2, "distance": 10 },
+               ],
+               "childs": [11, 17]
+            }, // 9
             //! Salarios
             {
-               "name": "Consumidor", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "name": "ConsumidorA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
-                  { "source": 10, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 10, "target": 6, "value": 1, "distance": 15 },
-                  { "source": 10, "target": 8, "value": 1, "distance": 15 },
-                  { "source": 10, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 11, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 17, "value": 2, "distance": 15 },
                ],
-               "childs": [5, 6, 8, 9]
+               "childs": [11, 17]
             },//10
             { "name": "Mercado Negro", "r": 10, "type": 2, "img": "alquiler.png" },//11
-            { "name": "MYPE", "r": 10, "type": 2, "img": "alquiler.png" },//12
+            {
+               "name": "MYPE", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true
+               , "links": [
+                  { "source": 12, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 12, "target": 10, "value": 1, "distance": 15 },
+               ],
+               "childs": [9, 10]
+            },//12
             { "name": "Desempleo", "r": 10, "type": 2, "img": "alquiler.png" },//13
             {
                "name": "Subsidios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,
                "links": [
-                  { "source": 14, "target": 1, "value": 1, "distance": 15 },
+                  { "source": 14, "target": 36, "value": 1, "distance": 15 },
                ],
-               "childs": [1]
+               "childs": [36]
             },//14
             {
                "name": "Inflacion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
-                  { "source": 15, "target": 10, "value": 1, "distance": 15 },
-                  { "source": 15, "target": 5, "value": 1, "distance": 15 },
-                  { "source": 15, "target": 9, "value": 1, "distance": 15 },
-                  { "source": 15, "target": 16, "value": 1, "distance": 15 },
+                  { "source": 15, "target": 20, "value": 1, "distance": 15 },
                ],
-               "childs": [10, 5, 9, 16]
+               "childs": [15]
             },//15
             {
-               "name": "Inversiones", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "name": "InversionesA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
 
-                  { "source": 16, "target": 8, "value": 1, "distance": 15 },
-                  { "source": 16, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 16, "target": 22, "value": 1, "distance": 15 },
+                  { "source": 16, "target": 23, "value": 1, "distance": 15 },
                ],
-               "childs": [8, 9]
+               "childs": [22, 23]
 
             },//16
             {
@@ -286,33 +294,173 @@
                "name": "Destino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
                   { "source": 18, "target": 14, "value": 2, "distance": 15 },
-                  { "source": 18, "target": 16, "value": 2, "distance": 15 },
+                  { "source": 18, "target": 21, "value": 1, "distance": 15 },
                ],
-               "childs": [14, 16]
+               "childs": [14, 21]
             },//18
             {
                "name": "Energia", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//10
                "links": [
                   { "source": 19, "target": 1, "value": 1, "distance": 15 },
-                  { "source": 19, "target": 10, "value": 1, "distance": 15 },
                ],
-               "childs": [1, 10]
+               "childs": [1]
             },//19
-            // {
-            //    "name": "Medios", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//11
-            //    "links": [
-            //       { "source": 11, "target": 5, "value": 1, "distance": 15 },
-            //       { "source": 11, "target": 4, "value": 1, "distance": 5 },
-            //       { "source": 11, "target": 1, "value": 1, "distance": 15 },
-            //       { "source": 11, "target": 2, "value": 1, "distance": 10 },
-            //    ]
-            // },//7,
-
+            {
+               "name": "ConsumidorB", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//20
+            {
+               "name": "InfraestructuraA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 21, "target": 16, "value": 2, "distance": 15 },
+               ],
+               "childs": [16],
+            },//21
+            {
+               "name": "EstudianteA", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//22
+            {
+               "name": "TrabajadorB", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//23
+            {
+               "name": "Industria", "r": 15, "type": 1, "img": "alquiler.png", "parent": true,//10
+               "links": [
+                  { "source": 24, "target": 25, "value": 1, "distance": 15 },
+                  { "source": 24, "target": 26, "value": 1, "distance": 15 },
+               ],
+               "childs": [25, 26]
+            },//24
+            {
+               "name": "Proteccionismo", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 25, "target": 27, "value": 1, "distance": 15 },
+               ],
+               "childs": [27],//10
+            },//25
+            {
+               "name": "Expropiacion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 26, "target": 29, "value": 1, "distance": 15 },
+               ],
+               "childs": [29],//10//10
+            },//26
+            {
+               "name": "Mercantilismo", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 27, "target": 28, "value": 1, "distance": 15 },
+               ],
+               "childs": [28],//10
+            },//27
+            {
+               "name": "ConsumidorC", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//28
+            {
+               "name": "InversionesB", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 29, "target": 30, "value": 1, "distance": 15 },
+                  { "source": 29, "target": 28, "value": 2, "distance": 15 },
+               ],
+               "childs": [30, 28],//10//10
+            },//29
+            {
+               "name": "Capital", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//30
+            {
+               "name": "Oferta - Demanda B ", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 31, "target": 35, "value": 1, "distance": 15 },
+                  { "source": 31, "target": 3, "value": 2, "distance": 15 },
+                  { "source": 31, "target": 32, "value": 2, "distance": 15 },
+               ],
+               "childs": [35, 3, 32],
+            },//31
+            {
+               "name": "EstudianteB", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//32
+            {
+               "name": "TrabajadorB", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 33, "target": 34, "value": 1, "distance": 15 },
+                  { "source": 33, "target": 7, "value": 2, "distance": 15 },
+               ],
+               "childs": [34, 7],//10
+               //10
+            },//33
+            {
+               "name": "MercadoNegroB", "r": 10, "type": 2, "img": "alquiler.png"//10
+            },//34
+            {
+               "name": "Precios", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 35, "target": 3, "value": 2, "distance": 15 },
+                  { "source": 35, "target": 32, "value": 2, "distance": 15 },
+               ],
+               "childs": [3, 32],
+               //10
+            },//35
+            {
+               "name": "Pueblo", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 36, "target": 37, "value": 1, "distance": 15 },
+               ],
+               "childs": [37],
+            },//36
+            {
+               "name": "Oferta - DemandaC", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 37, "target": 38, "value": 1, "distance": 15 },
+               ],
+               "childs": [38],
+            },//37
+            {
+               "name": "InflacionB", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 38, "target": 39, "value": 1, "distance": 15 },
+                  { "source": 38, "target": 40, "value": 1, "distance": 15 },
+               ],
+               "childs": [39, 40],
+            },//38
+            {
+               "name": "Precios B", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 39, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36],//10
+            },//39
+            {
+               "name": "Intervencion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 40, "target": 41, "value": 1, "distance": 15 },
+                  { "source": 40, "target": 42, "value": 1, "distance": 15 },
+               ],
+               "childs": [41, 42],
+            },//40
+            {
+               "name": "Control de precios", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 41, "target": 37, "value": 1, "distance": 15 },
+               ],
+               "childs": [37],//10
+            },//41
+            {
+               "name": "Emision", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 42, "target": 43, "value": 1, "distance": 15 },
+               ],
+               "childs": [43],
+               //10
+            },//42
+            {
+               "name": "Bajos Salarios", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 43, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36],//10
+            },//43
          ],
          "links": [
          ]
       }
-      var w = 1200, h = document.documentElement.clientHeight * 0.75,
+      var w = 1200, h = document.documentElement.clientHeight * 0.85,
          radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
       var vis = d3.select("body").select("svg")
          .attr("width", w)
@@ -398,7 +546,7 @@
             }
          });
       node.on("mouseover", function (d) {
-         //d3.select(this).style("fill", "black")
+         // d3.select(this).style("fill", "black")
          // link.style('stroke-width', function (l) {
          //    if (d === l.source || d === l.target)
          //       return 2;
@@ -409,8 +557,8 @@
       })
       node.on('click', function (d) {
          //eliminar child - Alquiler
-
-         if (expand && d.parent == true) {//eliminar childs
+         console.log(d.parent);
+         if (expand && d.parent == true && typeof d.parent != 'undefined') {//eliminar childs
             //var linkIndex = data.nodes[d.index].links;
             // data.links.forEach(function (l) {
             //    if (l.source.index == d.index) {//|| l.target.index == d.index
@@ -424,6 +572,7 @@
             // })
             childs = []
             dataChild = []
+            childsList = []
             indexExpandChild = -1;
             console.warn(childs);
             data.links = [];
@@ -501,7 +650,9 @@
             if (dataChild.length > 0) {
                var newChilds = data.nodes[indexExpandChild].childs;
                newChilds.forEach(element => {
-                  dataChild.push(element);
+                  if (!dataChild.includes(element)) {
+                     dataChild.push(element);
+                  }
                });
             } else {
                dataChild = data.nodes[indexExpandChild].childs;
@@ -511,7 +662,7 @@
             console.log(dataChild)
             // indexExpand = d.index;
          }
-         else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild && childs.includes(d.index)) {
+         else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild && (childs.includes(d.index) || dataChild.includes(d.index))) {
             document.querySelectorAll(`[data-parent='${d.index}']`)
                .forEach(element => {
                   element.remove();
@@ -590,7 +741,7 @@
             indexExpandChild = -1;
             console.log('childs', childs)
          }
-         else if (!expand || d.parent) {
+         else if (!expand && typeof d.parent != "undefined" && d.parent == true) {
             d.links.forEach(element => {
                data.links.push(element);
             });
@@ -643,14 +794,14 @@
             })
             .text(function (d) {
                if (d.parent) {
-                  return d.name
+                  return d.name + " " + d.index;
                }
                else if (childs.includes(d.index) && expand) {
-                  return d.name
+                  return d.name + "-" + d.index
                } else if (dataChild.includes(d.index) && expandChild) {
-                  return d.name
+                  return d.name + "-" + d.index
                } else {
-                  return "*"
+                  return "+"
                }
             }
             )
