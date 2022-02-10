@@ -80,6 +80,7 @@
          flex-direction: row;
          justify-content: center;
          align-items: center;
+         padding-right: 3%;
          /*         background-color: #001457;*/
          background: linear-gradient(180deg, #020024 0%, #060557 90%, #090979 100%);
       }
@@ -102,8 +103,8 @@
 
       #btnRestart {
          position: absolute;
-         right: 5%;
-         bottom: 10px;
+         left: 3%;
+         top: 5%;
          height: max-content;
          z-index: 1;
          background-color: #E5B96F;
@@ -120,7 +121,6 @@
       #content {
          width: 20%;
          height: 60%;
-         padding: 10px;
          border: 1px solid red;
       }
 
@@ -166,7 +166,7 @@
       <svg></svg>
    </div>
    <div id="content">
-      <img src="SVG/titulo.svg""></img>
+      <img src="SVG/pregunta_trans_2.svg""></img>
       <!-- <div>
          <button class=" prev">
       <i class="fas fa-chevron-left"></i>
@@ -562,13 +562,16 @@
             }
          });
       node.on("mouseover", function (d) {
-         //d3.select(this).style("fill", "Green");
+         // d3.select(this).style("fill", "red");
          // link.style('stroke-width', function (l) {
          //    if (d === l.source || d === l.target)
          //       return 3;
          //    else
          //       return 1;
          // });
+         // if (d.parentChild == true && typeof d.chils != "undefined") {
+         //    d3.select(this).style("fill", "Green");
+         // }
          if (d.parent == true) {
             document.querySelector('img').setAttribute('src', d.img);
          }
@@ -792,6 +795,7 @@
       })
       node.on("mouseout", function (d) {
          //link.style('stroke-width', 2)
+         // d3.select(this).style("fill", "green");
          if (d.parent == true && !expand) {
             document.querySelector('img').setAttribute('src', "SVG/titulo.svg");
          }
@@ -825,16 +829,17 @@
             .attr("y2", function (d) { return d.target.y; });
          node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
          node.style("cursor", function (d) {
-            if ((d.parentChild == true && expand && childs.includes(d.index)) || d.parent == true) {
+            if ((d.parentChild == true && expand && (childs.includes(d.index) || dataChild.includes(d.index)) && typeof d.childs != 'undefined') || d.parent == true) {
                return "pointer";
             }
             else {
                return "default";
             }
          })
+
          node.style("fill", function (d) {
-            if ((childs.includes(d.index) || dataChild.includes(d.index)) && typeof d.parentChild == "undefined" && typeof d.parent == "undefined") {
-               return "#199ba0"
+            if (expand && d.parentChild == true && typeof d.childs != 'undefined' && (childs.includes(d.index) || dataChild.includes(d.index)) && !childsList.includes(d.index)) {
+               return "#E5B96F"
             }
          })
          text
@@ -876,9 +881,12 @@
       //});
       btnRestart.addEventListener('click', function () {
          data.links = [];
+         childs = []
+         dataChild = []
+         childsList = []
          console.warn(data.links);
          vis.selectAll("line").remove()
-         force.nodes(data.nodes).links(data.links).start();
+         force.nodes(data.nodes).links(data.links).charge(-150).start();
          expand = false;
       })
    </script>
