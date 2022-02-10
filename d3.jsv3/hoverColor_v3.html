@@ -10,16 +10,22 @@
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css"
       integrity="sha512-r9kUVFtJ0e+8WIL8sjTUlHGbTLwlOClXhVqGgu4sb7ILdkBvM2uI+n/Fz3FN8u3VqJX7l9HLiXqXxkx2mZpkvQ=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Epilogue&family=Libre+Baskerville&display=swap"
+      rel="stylesheet">
    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
       integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
       crossorigin="anonymous" referrerpolicy="no-referrer" />
    <style id="compiled-css" type="text/css">
       @charset "utf-8";
 
+      /*
       @font-face {
          font-family: 'NexaDemo-Bold';
          src: url('../Fonts/NexaDemo-Bold.woff');
       }
+*/
 
       .link10 {
          stroke: rgb(226, 57, 57);
@@ -28,31 +34,35 @@
       }
 
       .link2 {
-         stroke: rgb(227, 241, 28);
+         /*         stroke: rgb(227, 241, 28);*/
+         stroke: rgb(121, 235, 98);
          stroke-width: 1px;
-         stroke-dasharray: 1, 8;
+         stroke-dasharray: 5, 4;
       }
 
       .link1 {
          stroke: rgb(121, 235, 98);
+         /*          stroke: rgb(227, 241, 28);*/
          stroke-width: 1px;
       }
 
       .nodetext {
          pointer-events: none;
          fill: rgb(247, 247, 247);
-         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;
-         font-weight: bold;
-         letter-spacing: 2px;
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
+         text-transform: uppercase;
+         font-weight: 100;
+         letter-spacing: 1px;
       }
 
       .node.type1 {
-         fill: #aa169e;
+         fill: #E200FF;
          cursor: pointer;
       }
 
       .node.type2 {
-         fill: #10787c;
+         fill: #00C4FF;
       }
 
       .node.type22 {
@@ -70,7 +80,8 @@
          flex-direction: row;
          justify-content: center;
          align-items: center;
-         background-color: #000;
+         /*         background-color: #001457;*/
+         background: linear-gradient(180deg, #020024 0%, #060557 90%, #090979 100%);
       }
 
       #graph {
@@ -97,11 +108,12 @@
          z-index: 1;
          background-color: #E5B96F;
          color: #000;
-         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
          border: none;
          border-radius: 5px;
          padding: 5px 10px;
-         font-size: 16px;
+         font-size: 15px;
          cursor: pointer;
       }
 
@@ -123,11 +135,12 @@
          z-index: 1;
          background-color: #c649f8;
          color: white;
-         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
          border: none;
          border-radius: 5px;
          padding: 5px 10px;
-         font-size: 16px;
+         font-size: 15px;
          cursor: pointer;
       }
 
@@ -137,11 +150,12 @@
          z-index: 1;
          background-color: #c649f8;
          color: white;
-         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
          border: none;
          border-radius: 5px;
          padding: 5px 10px;
-         font-size: 16px;
+         font-size: 15px;
          cursor: pointer;
       }
    </style>
@@ -168,7 +182,7 @@
       <i class="fas fa-redo-alt"></i>
       Reiniciar
    </button>
-   <script src="https://d3js.org/d3.v2.js?2.:9.1"></script>
+   <script src="https://d3js.org/d3.v2.js?2.9.1"></script>
    <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
    <script type='text/javascript'>
       var expand = false;
@@ -182,7 +196,7 @@
       var data = {
          "nodes": [
             {
-               "name": "Alquiler", "r": 15, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/Group 4.svg",  //0
+               "name": "Alquiler", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",  //0
                "links": [
                   { "source": 0, "target": 31, "value": 1, "distance": 10 },
                   { "source": 0, "target": 2, "value": 1, "distance": 10 },
@@ -192,7 +206,7 @@
                "childs": [31, 2, 3, 4]
             },
             {
-               "name": "Oferta - Demanda A*", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 5.svg",
+               "name": "Oferta - Demanda A*", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 1, "target": 15, "value": 1, "distance": 15 },
                   { "source": 1, "target": 20, "value": 1, "distance": 15 },
@@ -200,7 +214,7 @@
                "childs": [15, 20]
             },//1
             {
-               "name": "Constructoras", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
+               "name": "Constructoras", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
                "links": [
                   { "source": 2, "target": 33, "value": 1, "distance": 10 },
                   { "source": 2, "target": 31, "value": 1, "distance": 10 }
@@ -208,32 +222,32 @@
                "childs": [33, 31]
             },//2
             {
-               "name": "Arrendador", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 1.svg", //3
+               "name": "Arrendador", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 1.svg", //3
                "links": [
                   { "source": 3, "target": 6, "value": 1, "distance": 10 },
                ],
                "childs": [6]
             },
             {
-               "name": "Inquilino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 3.svg",
+               "name": "Inquilino", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/texto_blanco.svg",
                "links": [
                   { "source": 4, "target": 32, "value": 1, "distance": 10 },
                   { "source": 4, "target": 5, "value": 1, "distance": 10 },
                ],
                "childs": [5, 32]
             },//4
-            { "name": "Sr.x", "r": 10, "type": 2 },//5
-            { "name": "Sr.Z", "r": 10, "type": 2 },//6
+            { "name": "Sr.x", "r": 5, "type": 2 },//5
+            { "name": "Sr.Z", "r": 5, "type": 2 },//6
             {
-               "name": "Salarios", "r": 15, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/Group 4.svg",//7
+               "name": "Salarios", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//7
                "links": [
                   { "source": 7, "target": 12, "value": 1, "distance": 15 }
                ],
                "childs": [12]
             },
-            { "name": "Estudiante", "r": 10, "type": 2, "img": "alquiler.png" }, //!/*  */ 8
+            { "name": "Estudiante", "r": 5, "type": 2, "img": "alquiler.png" }, //!/*  */ 8
             {
-               "name": "TrabajadorA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "name": "TrabajadorA", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
                   { "source": 9, "target": 11, "value": 1, "distance": 10 },
                   { "source": 9, "target": 17, "value": 2, "distance": 10 },
@@ -242,39 +256,39 @@
             }, // 9
             //! Salarios
             {
-               "name": "ConsumidorA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "name": "ConsumidorA", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true,
                "links": [
                   { "source": 10, "target": 11, "value": 1, "distance": 15 },
                   { "source": 10, "target": 17, "value": 2, "distance": 15 },
                ],
                "childs": [11, 17]
             },//10
-            { "name": "Mercado Negro", "r": 10, "type": 2, "img": "alquiler.png" },//11
+            { "name": "Mercado Negro", "r": 5, "type": 2, "img": "alquiler.png" },//11
             {
-               "name": "MYPE", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true
+               "name": "MYPE", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true
                , "links": [
                   { "source": 12, "target": 9, "value": 1, "distance": 15 },
                   { "source": 12, "target": 10, "value": 1, "distance": 15 },
                ],
                "childs": [9, 10]
             },//12
-            { "name": "Desempleo", "r": 10, "type": 2, "img": "alquiler.png" },//13
+            { "name": "Desempleo", "r": 5, "type": 2, "img": "alquiler.png" },//13
             {
-               "name": "Subsidios", "r": 15, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/Group 4.svg",
+               "name": "Subsidios", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",
                "links": [
                   { "source": 14, "target": 36, "value": 1, "distance": 15 },
                ],
                "childs": [36]
             },//14
             {
-               "name": "Inflacion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Inflacion", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 15, "target": 20, "value": 1, "distance": 15 },
                ],
                "childs": [15]
             },//15
             {
-               "name": "InversionesA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "InversionesA", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
 
                   { "source": 16, "target": 22, "value": 1, "distance": 15 },
@@ -284,7 +298,7 @@
 
             },//16
             {
-               "name": "Impuestos", "r": 15, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/Group 4.svg",
+               "name": "Impuestos", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",
                "links": [
                   { "source": 17, "target": 16, "value": 1, "distance": 15 },
                   { "source": 17, "target": 18, "value": 1, "distance": 15 },
@@ -292,7 +306,7 @@
                "childs": [16, 18]
             },//17
             {
-               "name": "Destino", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Destino", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 18, "target": 14, "value": 2, "distance": 15 },
                   { "source": 18, "target": 21, "value": 1, "distance": 15 },
@@ -300,30 +314,30 @@
                "childs": [14, 21]
             },//18
             {
-               "name": "Energia", "r": 15, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/Group 4.svg",//10
+               "name": "Energia", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//10
                "links": [
                   { "source": 19, "target": 1, "value": 1, "distance": 15 },
                ],
                "childs": [1]
             },//19
             {
-               "name": "ConsumidorB", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "ConsumidorB", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//20
             {
-               "name": "InfraestructuraA", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "InfraestructuraA", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 21, "target": 16, "value": 2, "distance": 15 },
                ],
                "childs": [16],
             },//21
             {
-               "name": "EstudianteA", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "EstudianteA", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//22
             {
-               "name": "TrabajadorB", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "TrabajadorB", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//23
             {
-               "name": "Industria", "r": 15, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/Group 4.svg",//10
+               "name": "Industria", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//10
                "links": [
                   { "source": 24, "target": 25, "value": 1, "distance": 15 },
                   { "source": 24, "target": 26, "value": 1, "distance": 15 },
@@ -331,31 +345,31 @@
                "childs": [25, 26]
             },//24
             {
-               "name": "Proteccionismo", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Proteccionismo", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 25, "target": 27, "value": 1, "distance": 15 },
                ],
                "childs": [27],//10
             },//25
             {
-               "name": "Expropiacion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Expropiacion", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 26, "target": 29, "value": 1, "distance": 15 },
                ],
                "childs": [29],//10//10
             },//26
             {
-               "name": "Mercantilismo", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Mercantilismo", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 27, "target": 28, "value": 1, "distance": 15 },
                ],
                "childs": [28],//10
             },//27
             {
-               "name": "ConsumidorC", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "ConsumidorC", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//28
             {
-               "name": "InversionesB", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "InversionesB", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 29, "target": 30, "value": 1, "distance": 15 },
                   { "source": 29, "target": 28, "value": 2, "distance": 15 },
@@ -363,10 +377,10 @@
                "childs": [30, 28],//10//10
             },//29
             {
-               "name": "Capital", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "Capital", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//30
             {
-               "name": "Oferta - Demanda B ", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Oferta - Demanda B ", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 31, "target": 35, "value": 1, "distance": 15 },
                   { "source": 31, "target": 3, "value": 2, "distance": 15 },
@@ -375,10 +389,10 @@
                "childs": [35, 3, 32],
             },//31
             {
-               "name": "EstudianteB", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "EstudianteB", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//32
             {
-               "name": "TrabajadorB", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "TrabajadorB", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 33, "target": 34, "value": 1, "distance": 15 },
                   { "source": 33, "target": 7, "value": 2, "distance": 15 },
@@ -387,10 +401,10 @@
                //10
             },//33
             {
-               "name": "MercadoNegroB", "r": 10, "type": 2, "img": "alquiler.png"//10
+               "name": "MercadoNegroB", "r": 5, "type": 2, "img": "alquiler.png"//10
             },//34
             {
-               "name": "Precios", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Precios", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 35, "target": 3, "value": 2, "distance": 15 },
                   { "source": 35, "target": 32, "value": 2, "distance": 15 },
@@ -399,21 +413,21 @@
                //10
             },//35
             {
-               "name": "Pueblo", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Pueblo", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 36, "target": 37, "value": 1, "distance": 15 },
                ],
                "childs": [37],
             },//36
             {
-               "name": "Oferta - DemandaC", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Oferta - DemandaC", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 37, "target": 38, "value": 1, "distance": 15 },
                ],
                "childs": [38],
             },//37
             {
-               "name": "InflacionB", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "InflacionB", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 38, "target": 39, "value": 1, "distance": 15 },
                   { "source": 38, "target": 40, "value": 1, "distance": 15 },
@@ -421,14 +435,14 @@
                "childs": [39, 40],
             },//38
             {
-               "name": "Precios B", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Precios B", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 39, "target": 36, "value": 1, "distance": 15 },
                ],
                "childs": [36],//10
             },//39
             {
-               "name": "Intervencion", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Intervencion", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 40, "target": 41, "value": 1, "distance": 15 },
                   { "source": 40, "target": 42, "value": 1, "distance": 15 },
@@ -436,14 +450,14 @@
                "childs": [41, 42],
             },//40
             {
-               "name": "Control de precios", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Control de precios", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 41, "target": 37, "value": 1, "distance": 15 },
                ],
                "childs": [37],//10
             },//41
             {
-               "name": "Emision", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Emision", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 42, "target": 43, "value": 1, "distance": 15 },
                ],
@@ -451,7 +465,7 @@
                //10
             },//42
             {
-               "name": "Bajos Salarios", "r": 10, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "name": "Bajos Salarios", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
                "links": [
                   { "source": 43, "target": 36, "value": 1, "distance": 15 },
                ],
@@ -461,8 +475,10 @@
          "links": [
          ]
       }
-      var w = 1500, h = 1080,
-         radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
+
+      var width = window.innerWidth - (window.innerWidth * 0.2);
+      var height = window.innerHeight - 10;
+      var w = width, h = height, radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
       var vis = d3.select("body").select("svg")
          .attr("width", w)
          .attr("height", h)
@@ -472,12 +488,13 @@
          .nodes(data.nodes)
          .links(data.links)
          .linkDistance(function (d) {
-            var num = Math.floor(Math.random() * (30 - 20)) + 20;
+            //var num = Math.floor(Math.random() * (20 - 15)) + 15;
+            var num = Math.floor(Math.random() * (25 - 20)) + 20;
             return (
-               num * 12);
+               num * 10);
          })
          // .gravity(0.10)
-         .charge(-500)
+         .charge(-150)
          // .friction(0.9)
          .size([w, h])
          .start();
@@ -529,9 +546,9 @@
          .attr("dy", function (d) { return d.y + d.r + 5; })
          .style("font-size", function (d) {
             if (d.parent == true) {
-               return "20px";
+               return "14px";
             } else {
-               return "15px";
+               return "13px";
             }
          })
 
@@ -557,9 +574,20 @@
          }
       })
       node.on('click', function (d) {
-
+         //eliminar child - Alquiler
          console.log(d.parent);
          if (expand && d.parent == true && typeof d.parent != 'undefined') {//eliminar childs
+            //var linkIndex = data.nodes[d.index].links;
+            // data.links.forEach(function (l) {
+            //    if (l.source.index == d.index) {//|| l.target.index == d.index
+            //       data.links.splice(data.links.indexOf(l), 1);
+            //    }
+            // })
+            // childs.forEach(function (c) {
+            //    if (c == d.index) {
+            //       childs.splice(childs.indexOf(c), 1);
+            //    }
+            // })
             childs = []
             dataChild = []
             childsList = []
@@ -631,7 +659,7 @@
             d3.select(this).select('text')
                .transition()
                .duration(300)
-               .style("font-size", "15px")
+               .style("font-size", "10px")
                .text(function (d) {
                   return d.name
                }
@@ -697,9 +725,9 @@
                })
                .style("font-size", function (d) {
                   if (d.parent == true) {
-                     return "20px";
+                     return "14px";
                   } else {
-                     return "15px";
+                     return "13px";
                   }
                })
             d3.select(this).select('circle')
@@ -713,9 +741,9 @@
                .duration(300)
                .style("font-size", function (d) {
                   if (d.parent == true) {
-                     return "20px";
+                     return "14px";
                   } else {
-                     return "15px";
+                     return "13px";
                   }
                })
                .text(function (d) {
@@ -740,7 +768,7 @@
             force.links(data.links).start();
             // console.warn(d.links);
             vis.selectAll("line").remove()
-            force.nodes(data.nodes).links(data.links).charge(-800).start();
+            force.nodes(data.nodes).links(data.links).charge(-250).start();
             link = d3.select('.lines').selectAll("line.link")
                .data(data.links)//data
                .enter().append("svg:line")
@@ -814,15 +842,16 @@
             .duration(300)
             .style("font-size", function (d) {
                if (d.parent == true) {
-                  return "20px";
+                  return "14px";
                } else {
-                  return "15px";
+                  return "13px";
                }
             })
             .text(function (d) {
                if (d.parent) {
                   return d.name
-               } else if (childs.includes(d.index) && expand) {
+               }
+               else if (childs.includes(d.index) && expand) {
                   return d.name
                } else if (dataChild.includes(d.index) && expandChild) {
                   return d.name
@@ -831,10 +860,20 @@
                }
             }
             )
-         text.attr("dx", function (d) { return d.x - d.r })
-            .attr("dy", function (d) { return d.y - d.r - 30; });
-      });
+         text
+            .attr('text-anchor', 'middle')
+            .attr("dx", function (d) { return d.x - d.r + 10 })
+            .attr("dy", function (d) {
+               if (d.parent == true) {
+                  return d.y - d.r - 25;
+               } else {
+                  return d.y - d.r - 15;
+               }
 
+            });
+         // node.attr("dx", fu;
+      });
+      //});
       btnRestart.addEventListener('click', function () {
          data.links = [];
          console.warn(data.links);
@@ -842,7 +881,6 @@
          force.nodes(data.nodes).links(data.links).start();
          expand = false;
       })
-
    </script>
 </body>
 
