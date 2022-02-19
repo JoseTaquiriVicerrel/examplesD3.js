@@ -836,7 +836,6 @@
                return "default";
             }
          })
-
          node.style("fill", function (d) {
             if (expand && d.parentChild == true && typeof d.childs != 'undefined' && (childs.includes(d.index) || dataChild.includes(d.index)) && !childsList.includes(d.index)) {
                return "#E5B96F"
