@@ -1,0 +1,1200 @@
+<!DOCTYPE html>
+<html>
+
+<head>
+   <title>force layout</title>
+   <meta name="viewport" content="width=device-width, initial-scale=1">
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Roboto:wght@100&display=swap" rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/fontawesome.min.css"
+      integrity="sha512-r9kUVFtJ0e+8WIL8sjTUlHGbTLwlOClXhVqGgu4sb7ILdkBvM2uI+n/Fz3FN8u3VqJX7l9HLiXqXxkx2mZpkvQ=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Epilogue:wght@400;500;600;700;800&family=Krona+One&display=swap"
+      rel="stylesheet">
+   <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css"
+      integrity="sha512-Fo3rlrZj/k7ujTnHg4CGR2D7kSs0v4LLanw2qksYuRlEzO+tcaEPQogQ0KaoGN26/zrn20ImR1DfuLWnOo7aBA=="
+      crossorigin="anonymous" referrerpolicy="no-referrer" />
+   <style id="compiled-css" type="text/css">
+      @charset "utf-8";
+
+
+      .link10 {
+         stroke: rgb(226, 57, 57);
+         stroke-width: 1px;
+         stroke-dasharray: 3, 3;
+      }
+
+      .link2 {
+         /*         stroke: rgb(227, 241, 28);*/
+         stroke: rgb(121, 235, 98);
+         stroke-width: 1px;
+         stroke-dasharray: 5, 4;
+      }
+
+      .link1 {
+         stroke: rgb(121, 235, 98);
+         /*          stroke: rgb(227, 241, 28);*/
+         stroke-width: 1px;
+      }
+
+      .nodetext {
+         pointer-events: none;
+         fill: rgb(247, 247, 247);
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         /*         font-family: 'Krona One', sans-serif;*/
+         /*font-family: 'BwGradualDEMO-ExtraBold', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
+         text-transform: uppercase;
+         font-weight: 600;
+         letter-spacing: 1.7px;
+      }
+
+      .node.type1 {
+         fill: #E200FF;
+         cursor: pointer;
+      }
+
+      .node.type2 {
+         fill: #00C4FF;
+      }
+
+      .node.type22 {
+         fill: #199ba0;
+      }
+
+      .node.type3 {
+         fill: #E5B96F;
+      }
+
+      body {
+         height: 100vh;
+         margin: 0;
+         display: flex;
+         flex-direction: row;
+         justify-content: center;
+         align-items: center;
+         padding-right: 3%;
+         /*         background-color: #001457;*/
+         background: linear-gradient(180deg, #020024 0%, #060557 90%, #090979 100%);
+      }
+
+      #graph {
+         border: 1px solid #aa169e;
+         height: 100%;
+         width: 70%;
+      }
+
+      #content {
+         border: #E5B96F;
+      }
+
+      #content img {
+         width: 100%;
+         height: 100%;
+         margin: 0 auto;
+      }
+
+      #btnRestart {
+         position: absolute;
+         left: 3%;
+         top: 5%;
+         height: max-content;
+         z-index: 1;
+         background-color: white;
+         color: #000;
+         font-family: 'Epilogue', sans-serif;
+         border: none;
+         border-radius: 5px;
+         padding: 5px 10px;
+         font-size: 12px;
+         cursor: pointer;
+      }
+
+      #content {
+         width: 30%;
+         height: 80%;
+         border: 1px solid red;
+      }
+
+      #content>div {
+         display: flex;
+         flex-direction: rows;
+         justify-content: space-between;
+         align-items: center;
+      }
+
+      .prev {
+         z-index: 1;
+         background-color: #c649f8;
+         color: white;
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
+         border: none;
+         border-radius: 5px;
+         padding: 5px 10px;
+         font-size: 15px;
+         cursor: pointer;
+      }
+
+      .next {
+         bottom: 10px;
+         height: max-content;
+         z-index: 1;
+         background-color: #c649f8;
+         color: white;
+         /*         font-family: 'NexaDemo-Bold', 'Roboto', sans-serif;*/
+         font-family: 'Epilogue', sans-serif;
+         border: none;
+         border-radius: 5px;
+         padding: 5px 10px;
+         font-size: 15px;
+         cursor: pointer;
+      }
+   </style>
+</head>
+
+<body>
+   <div id="graph">
+      <svg></svg>
+   </div>
+   <div id="content">
+      <img src="SVG/home_new.svg""></img>
+      <!-- <div>
+         <button class=" prev">
+      <i class="fas fa-chevron-left"></i>
+      Anterior</button>
+      <button class="next">
+         Siguiente
+         <i class="fas fa-chevron-right"></i>
+      </button> -->
+   </div>
+   </div>
+
+   <button id="btnRestart">
+      <i class="fas fa-redo-alt"></i>
+      Refresh
+   </button>
+   <script src="https://d3js.org/d3.v2.js?2.9.1"></script>
+   <script type="text/javascript" src="https://ajax.googleapis.com/ajax/libs/jquery/1.8/jquery.min.js"></script>
+   <script type='text/javascript'>
+      var expand = false;
+      var expandChild = false;
+      var indexExpand = -1;
+      var indexExpandChild = -1;
+      var childs = [];
+      var dataChild = [];
+      var childsParent = [];
+      var childsList = [];
+      var data = {
+         "nodes": [
+            {
+               "name": "Rent", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",  //0
+               "links": [
+                  { "source": 0, "target": 31, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 2, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 3, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 4, "value": 1, "distance": 10 },
+               ],
+               "childs": [31, 2, 3, 4]
+            },
+            {
+               "name": "Supply & Demand", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 1, "target": 15, "value": 1, "distance": 15 },
+                  { "source": 1, "target": 20, "value": 1, "distance": 15 },
+               ],
+               "childs": [15, 20]
+            },//1
+            {
+               "name": "Builders", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
+               "links": [
+                  { "source": 2, "target": 33, "value": 1, "distance": 10 },
+                  { "source": 2, "target": 31, "value": 1, "distance": 10 }
+               ],
+               "childs": [33, 31]
+            },//2
+            {
+               "name": "Landlord", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 1.svg", //3
+               "links": [
+                  { "source": 3, "target": 6, "value": 1, "distance": 10 },
+               ],
+               "childs": [6]
+            },
+            {
+               "name": "Tenants", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/texto_blanco.svg",
+               "links": [
+                  { "source": 4, "target": 32, "value": 1, "distance": 10 },
+                  { "source": 4, "target": 5, "value": 1, "distance": 10 },
+               ],
+               "childs": [5, 32]
+            },//4
+            { "name": "Katy", "r": 5, "type": 2 },//5
+            { "name": "Mr Ben", "r": 5, "type": 2 },//6
+            {
+               "name": "Salary", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//7
+               "links": [
+                  { "source": 7, "target": 12, "value": 1, "distance": 15 }
+               ],
+               "childs": [12]
+            },
+            { "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png" }, //!/*  */ 8
+            {
+               "name": "Ms Carol", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 9, "target": 11, "value": 1, "distance": 10 },
+                  { "source": 9, "target": 17, "value": 2, "distance": 10 },
+               ],
+               "childs": [11, 17]
+            }, // 9
+            //! Salarios
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 10, "target": 11, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 17, "value": 2, "distance": 15 },
+               ],
+               "childs": [11, 17]
+            },//10
+            { "name": "Black Market", "r": 5, "type": 2, "img": "alquiler.png" },
+            //11
+            {
+               "name": "Business", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true
+               , "links": [
+                  { "source": 12, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 12, "target": 10, "value": 1, "distance": 15 },
+               ],
+               "childs": [9, 10]
+            },//12
+            { "name": "Unemployment", "r": 5, "type": 2, "img": "alquiler.png" },//13
+            {
+               "name": "Welfare", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",
+               "links": [
+                  { "source": 14, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36]
+            },//14
+            {
+               "name": "Inflation", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 15, "target": 20, "value": 1, "distance": 15 },
+               ],
+               "childs": [15]
+            },//15
+            {
+               "name": "Investment", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+
+                  { "source": 16, "target": 22, "value": 1, "distance": 15 },
+                  { "source": 16, "target": 23, "value": 1, "distance": 15 },
+               ],
+               "childs": [22, 23]
+
+            },//16
+            {
+               "name": "Taxes", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",
+               "links": [
+                  { "source": 17, "target": 16, "value": 1, "distance": 15 },
+                  { "source": 17, "target": 18, "value": 1, "distance": 15 },
+               ],
+               "childs": [16, 18]
+            },//17
+            {
+               "name": "Usage", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 18, "target": 14, "value": 2, "distance": 15 },
+                  { "source": 18, "target": 21, "value": 1, "distance": 15 },
+               ],
+               "childs": [14, 21]
+            },//18
+            {
+               "name": "Energy", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//10
+               "links": [
+                  { "source": 19, "target": 1, "value": 1, "distance": 15 },
+               ],
+               "childs": [1]
+            },//19
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//20
+            {
+               "name": "Infrastructure", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 21, "target": 16, "value": 2, "distance": 15 },
+               ],
+               "childs": [16],
+            },//21
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//22
+            {
+               "name": "Katy", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//23
+            {
+               "name": "Industry", "r": 10, "type": 1, "img": "SVG/Krona_type_probe.svg", "parent": true, "clickImage": "SVG/Krona_type_probe2.svg",//10
+               "links": [
+                  { "source": 24, "target": 25, "value": 1, "distance": 15 },
+                  { "source": 24, "target": 26, "value": 1, "distance": 15 },
+               ],
+               "childs": [25, 26]
+            },//24
+            {
+               "name": "Protectionism", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Mercantilism_2.svg",
+               "links": [
+                  { "source": 25, "target": 27, "value": 1, "distance": 15 },
+               ],
+               "childs": [27],//10
+            },//25
+            {
+               "name": "Expropiation", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 26, "target": 29, "value": 1, "distance": 15 },
+               ],
+               "childs": [29],//10//10
+            },//26
+            {
+               "name": "Mercantilism", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 27, "target": 28, "value": 1, "distance": 15 },
+               ],
+               "childs": [28],//10
+            },//27
+            {
+               "name": "Mr Ben", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//28
+            {
+               "name": "Investment", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 29, "target": 30, "value": 1, "distance": 15 },
+                  { "source": 29, "target": 28, "value": 2, "distance": 15 },
+               ],
+               "childs": [30, 28],//10//10
+            },//29
+            {
+               "name": "Capital", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//30
+            {
+               "name": "Supply & Demand", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 31, "target": 35, "value": 1, "distance": 15 },
+                  { "source": 31, "target": 3, "value": 2, "distance": 15 },
+                  { "source": 31, "target": 32, "value": 2, "distance": 15 },
+               ],
+               "childs": [35, 3, 32],
+            },//31
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//32
+            {
+               "name": "Max", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 33, "target": 34, "value": 1, "distance": 15 },
+                  { "source": 33, "target": 7, "value": 2, "distance": 15 },
+               ],
+               "childs": [34, 7],//10
+               //10
+            },//33
+            {
+               "name": "Black Market", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//34
+            {
+               "name": "Prices", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 35, "target": 3, "value": 2, "distance": 15 },
+                  { "source": 35, "target": 32, "value": 2, "distance": 15 },
+               ],
+               "childs": [3, 32],
+               //10
+            },//35
+            {
+               "name": "Ms Carol", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 36, "target": 37, "value": 1, "distance": 15 },
+               ],
+               "childs": [37],
+            },//36
+            {
+               "name": "Supply & Demand", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 37, "target": 38, "value": 1, "distance": 15 },
+               ],
+               "childs": [38],
+            },//37
+            {
+               "name": "Inflation", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 38, "target": 39, "value": 1, "distance": 15 },
+                  { "source": 38, "target": 40, "value": 1, "distance": 15 },
+               ],
+               "childs": [39, 40],
+            },//38
+            {
+               "name": "Prices", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 39, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36],//10
+            },//39
+            {
+               "name": "Intervention", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 40, "target": 41, "value": 1, "distance": 15 },
+                  { "source": 40, "target": 42, "value": 1, "distance": 15 },
+               ],
+               "childs": [41, 42],
+            },//40
+            {
+               "name": "Price Control", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 41, "target": 37, "value": 1, "distance": 15 },
+               ],
+               "childs": [37],//10
+            },//41
+            {
+               "name": "Printing", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 42, "target": 43, "value": 1, "distance": 15 },
+               ],
+               "childs": [43],
+               //10
+            },//42
+            {
+               "name": "Low Income", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 43, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36],//10
+            },//43
+         ],
+         "links": [
+         ]
+      }
+
+
+      var data2 = {
+         "nodes": [
+            {
+               "name": "Rent", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",  //0
+               "links": [
+                  { "source": 0, "target": 31, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 2, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 3, "value": 1, "distance": 10 },
+                  { "source": 0, "target": 4, "value": 1, "distance": 10 },
+               ],
+               "childs": [31, 2, 3, 4]
+            },
+            {
+               "name": "Supply & Demand", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 1, "target": 15, "value": 1, "distance": 15 },
+                  { "source": 1, "target": 20, "value": 1, "distance": 15 },
+               ],
+               "childs": [15, 20]
+            },//1
+            {
+               "name": "Builders", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0,
+               "links": [
+                  { "source": 2, "target": 33, "value": 1, "distance": 10 },
+                  { "source": 2, "target": 31, "value": 1, "distance": 10 }
+               ],
+               "childs": [33, 31]
+            },//2
+            {
+               "name": "Landlord", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/Asset 1.svg", //3
+               "links": [
+                  { "source": 3, "target": 6, "value": 1, "distance": 10 },
+               ],
+               "childs": [6]
+            },
+            {
+               "name": "Tenants", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "parentIndex": 0, "clickImage": "SVG/texto_blanco.svg",
+               "links": [
+                  { "source": 4, "target": 32, "value": 1, "distance": 10 },
+                  { "source": 4, "target": 5, "value": 1, "distance": 10 },
+               ],
+               "childs": [5, 32]
+            },//4
+            { "name": "Katy", "r": 5, "type": 2 },//5
+            { "name": "Mr Ben", "r": 5, "type": 2 },//6
+            {
+               "name": "Salary", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//7
+               "links": [
+                  { "source": 7, "target": 12, "value": 1, "distance": 15 }
+               ],
+               "childs": [12]
+            },
+            { "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png" }, //!/*  */ 8
+            {
+               "name": "Ms Carol", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 9, "target": 11, "value": 1, "distance": 10 },
+                  { "source": 9, "target": 17, "value": 2, "distance": 10 },
+               ],
+               "childs": [11, 17]
+            }, // 9
+            //! Salarios
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true,
+               "links": [
+                  { "source": 10, "target": 11, "value": 1, "distance": 15 },
+                  { "source": 10, "target": 17, "value": 2, "distance": 15 },
+               ],
+               "childs": [11, 17]
+            },//10
+            { "name": "Black Market", "r": 5, "type": 2, "img": "alquiler.png" },
+            //11
+            {
+               "name": "Business", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true
+               , "links": [
+                  { "source": 12, "target": 9, "value": 1, "distance": 15 },
+                  { "source": 12, "target": 10, "value": 1, "distance": 15 },
+               ],
+               "childs": [9, 10]
+            },//12
+            { "name": "Unemployment", "r": 5, "type": 2, "img": "alquiler.png" },//13
+            {
+               "name": "Welfare", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",
+               "links": [
+                  { "source": 14, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36]
+            },//14
+            {
+               "name": "Inflation", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 15, "target": 20, "value": 1, "distance": 15 },
+               ],
+               "childs": [15]
+            },//15
+            {
+               "name": "Investment", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+
+                  { "source": 16, "target": 22, "value": 1, "distance": 15 },
+                  { "source": 16, "target": 23, "value": 1, "distance": 15 },
+               ],
+               "childs": [22, 23]
+
+            },//16
+            {
+               "name": "Taxes", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",
+               "links": [
+                  { "source": 17, "target": 16, "value": 1, "distance": 15 },
+                  { "source": 17, "target": 18, "value": 1, "distance": 15 },
+               ],
+               "childs": [16, 18]
+            },//17
+            {
+               "name": "Usage", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 18, "target": 14, "value": 2, "distance": 15 },
+                  { "source": 18, "target": 21, "value": 1, "distance": 15 },
+               ],
+               "childs": [14, 21]
+            },//18
+            {
+               "name": "Energy", "r": 10, "type": 1, "img": "SVG/alquiler.png", "parent": true, "clickImage": "SVG/pregunta_blanco.svg",//10
+               "links": [
+                  { "source": 19, "target": 1, "value": 1, "distance": 15 },
+               ],
+               "childs": [1]
+            },//19
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//20
+            {
+               "name": "Infrastructure", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 21, "target": 16, "value": 2, "distance": 15 },
+               ],
+               "childs": [16],
+            },//21
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//22
+            {
+               "name": "Katy", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//23
+            {
+               "name": "Industry", "r": 10, "type": 1, "img": "SVG/Krona_type_probe.svg", "parent": true, "clickImage": "SVG/Krona_type_probe2.svg",//10
+               "links": [
+                  { "source": 24, "target": 25, "value": 1, "distance": 15 },
+                  { "source": 24, "target": 26, "value": 1, "distance": 15 },
+               ],
+               "childs": [25, 26]
+            },//24
+            {
+               "name": "Protectionism", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Mercantilism_2.svg",
+               "links": [
+                  { "source": 25, "target": 27, "value": 1, "distance": 15 },
+               ],
+               "childs": [27],//10
+            },//25
+            {
+               "name": "Expropiation", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 26, "target": 29, "value": 1, "distance": 15 },
+               ],
+               "childs": [29],//10//10
+            },//26
+            {
+               "name": "Mercantilism", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 27, "target": 28, "value": 1, "distance": 15 },
+               ],
+               "childs": [28],//10
+            },//27
+            {
+               "name": "Mr Ben", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//28
+            {
+               "name": "Investment", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 29, "target": 30, "value": 1, "distance": 15 },
+                  { "source": 29, "target": 28, "value": 2, "distance": 15 },
+               ],
+               "childs": [30, 28],//10//10
+            },//29
+            {
+               "name": "Capital", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//30
+            {
+               "name": "Supply & Demand", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 31, "target": 35, "value": 1, "distance": 15 },
+                  { "source": 31, "target": 3, "value": 2, "distance": 15 },
+                  { "source": 31, "target": 32, "value": 2, "distance": 15 },
+               ],
+               "childs": [35, 3, 32],
+            },//31
+            {
+               "name": "Tom", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//32
+            {
+               "name": "Max", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 33, "target": 34, "value": 1, "distance": 15 },
+                  { "source": 33, "target": 7, "value": 2, "distance": 15 },
+               ],
+               "childs": [34, 7],//10
+               //10
+            },//33
+            {
+               "name": "Black Market", "r": 5, "type": 2, "img": "alquiler.png"//10
+            },//34
+            {
+               "name": "Prices", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 35, "target": 3, "value": 2, "distance": 15 },
+                  { "source": 35, "target": 32, "value": 2, "distance": 15 },
+               ],
+               "childs": [3, 32],
+               //10
+            },//35
+            {
+               "name": "Ms Carol", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 36, "target": 37, "value": 1, "distance": 15 },
+               ],
+               "childs": [37],
+            },//36
+            {
+               "name": "Supply & Demand", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 37, "target": 38, "value": 1, "distance": 15 },
+               ],
+               "childs": [38],
+            },//37
+            {
+               "name": "Inflation", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 38, "target": 39, "value": 1, "distance": 15 },
+                  { "source": 38, "target": 40, "value": 1, "distance": 15 },
+               ],
+               "childs": [39, 40],
+            },//38
+            {
+               "name": "Prices", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 39, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36],//10
+            },//39
+            {
+               "name": "Intervention", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 40, "target": 41, "value": 1, "distance": 15 },
+                  { "source": 40, "target": 42, "value": 1, "distance": 15 },
+               ],
+               "childs": [41, 42],
+            },//40
+            {
+               "name": "Price Control", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 41, "target": 37, "value": 1, "distance": 15 },
+               ],
+               "childs": [37],//10
+            },//41
+            {
+               "name": "Printing", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 42, "target": 43, "value": 1, "distance": 15 },
+               ],
+               "childs": [43],
+               //10
+            },//42
+            {
+               "name": "Low Income", "r": 5, "type": 2, "img": "alquiler.png", "parentChild": true, "clickImage": "SVG/Asset 5.svg",
+               "links": [
+                  { "source": 43, "target": 36, "value": 1, "distance": 15 },
+               ],
+               "childs": [36],//10
+            },//43
+         ],
+         "links": [
+         ]
+      };
+
+      var width = window.innerWidth - (window.innerWidth * 0.3);
+      var height = window.innerHeight - 10;
+      var w = width, h = height, radius = d3.scale.log().domain([0, 312000]).range(["10", "50"]);
+      var vis = d3.select("body").select("svg")
+         .attr("width", w)
+         .attr("height", h)
+      // .attr("viewBox", "0 0 " + 100 + " " + 100);
+
+      var force = self.force = d3.layout.force()
+         .nodes(data.nodes)
+         .links(data.links)
+         .linkDistance(function (d) {
+            //var num = Math.floor(Math.random() * (20 - 15)) + 15;
+            var num = Math.floor(Math.random() * (25 - 20)) + 20;
+            return (
+               num * 10);
+         })
+         // .gravity(0.10)
+         .charge(-150)
+         // .friction(0.9)
+         .size([w, h])
+         .start();
+
+      var link = vis.selectAll("line.link")
+         .data(data.links)//data
+         .enter().append("svg:line")
+         .attr("class", function (d) { return "link" + d.value + ""; })
+         .attr("x1", function (d) { return d.source.x; })
+         .attr("y1", function (d) { return d.source.y; })
+         .attr("x2", function (d) { return d.target.x; })
+         .attr("y2", function (d) { return d.target.y; })
+
+      function fade(opacity) {
+         link.style("opacity", function (d) {
+            return d.source === d || d.target === d ? 1 : opacity;
+         });
+      }
+
+      var lines = vis.append('g').attr('class', 'lines');
+      var nodes = vis.append('g').attr('class', 'nodes');
+      var texts = vis.append('g').attr('class', 'texts');
+
+      var node = d3.select(".nodes").selectAll("circle.node")
+         .data(data.nodes)
+         .enter()
+         .append("circle")
+         .attr("class", function (d) { return "node type" + d.type })
+         .attr("r", function (d) {
+            return d.r * 2
+         })
+         .call(force.drag)
+      console.warn(node);
+      d3.select("body").select("svg")
+         .on('click', function (d) {
+            if (d3.event.target == "svg" && expand) {
+               data.links = [];
+               console.warn(data.links);
+               vis.selectAll("line").remove()
+               force.nodes(data.nodes).links(data.links).start();
+               expand = false;
+               return;
+            }
+         })
+      var text = d3.select(".texts")
+         .selectAll("text").data(data.nodes).enter().append("text")
+         .attr("class", function (d) { return "nodetext title_" + d.name })
+         .attr("dx", function (d) { return d.x; })
+         .attr("dy", function (d) { return d.y + d.r + 5; })
+         .style("font-size", function (d) {
+            if (d.parent == true) {
+               return "16px";
+            } else {
+               return "15px";
+            }
+         })
+
+         .style("fill", "white")
+         .text(function (d) {
+            if (d.parent) {
+               return d.name
+            }
+            else {
+               return ""
+            }
+         });
+      node.on("mouseover", function (d) {
+         // d3.select(this).style("fill", "red");
+         // link.style('stroke-width', function (l) {
+         //    if (d === l.source || d === l.target)
+         //       return 3;
+         //    else
+         //       return 1;
+         // });
+         // if (d.parentChild == true && typeof d.chils != "undefined") {
+         //    d3.select(this).style("fill", "Green");
+         // }
+         if (d.parent == true) {
+            document.querySelector('img').setAttribute('src', d.img);
+         }
+      })
+      node.on('click', function (d) {
+         //eliminar child - Alquiler
+         console.log(d.parent);
+         if (expand && d.parent == true && typeof d.parent != 'undefined') {//eliminar childs
+            //var linkIndex = data.nodes[d.index].links;
+            // data.links.forEach(function (l) {
+            //    if (l.source.index == d.index) {//|| l.target.index == d.index
+            //       data.links.splice(data.links.indexOf(l), 1);
+            //    }
+            // })
+            // childs.forEach(function (c) {
+            //    if (c == d.index) {
+            //       childs.splice(childs.indexOf(c), 1);
+            //    }
+            // })
+            childs = []
+            dataChild = []
+            childsList = []
+            indexExpandChild = -1;
+            console.warn(childs);
+            data.links = [];
+            // if (dataChild.length == 0) {
+            //    data = data2;
+            //    console.log("cambiado")
+            // }
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            console.log("eliminar childs - Parent")
+
+            if (d.index != indexExpand) {
+               document.querySelector('img').setAttribute('src', d.clickImage);
+               d.links.forEach(element => {
+                  data.links.push(element);
+               });
+               force.links(data.links).start();
+               // console.warn(d.links);
+               vis.selectAll("line").remove()
+               force.nodes(data.nodes).links(data.links).start();
+               link = d3.select('.lines').selectAll("line.link")
+                  .data(data.links)//data
+                  .enter().append("svg:line")
+                  .attr("class", function (d) { return "link" + d.value + ""; })
+                  .attr("x1", function (d) {
+                     // console.log(d.source.x);
+                     return d.source.x;
+                  })
+               console.log("Expand _ Parent")
+               expand = true;
+               indexExpand = d.index;
+               childs = data.nodes[indexExpand].childs;
+            } else {
+               expand = false;
+               expandChild = false;
+               indexExpandChild = -1;
+               indexExpand = -1;
+            }
+         }
+         else if ((d.parentChild == true && typeof d.links != "undefined" && expand && !childsList.includes(d.index))) {
+            document.querySelector('img').setAttribute('src', d.clickImage);
+            console.log("lengt", dataChild.length)
+            d.links.forEach(element => {
+               data.links.push(element);
+               console.log("Agregado Link- ", element);
+            });
+            console.log(data.links)
+            force.links(data.links).start();
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            link = d3.select('.lines').selectAll("line.link")
+               .data(data.links)//data
+               .enter().append("svg:line")
+               .attr("data-parent", function (d) {
+                  return d.source.index;
+               })
+               .attr("class", function (d) { return "link" + d.value + ""; })
+               .attr("x1", function (d) {
+                  return d.source.x;
+               })
+               .attr("y1", function (d) { return d.source.y; })
+               .attr("x2", function (d) { return d.target.x; })
+               .attr("y2", function (d) { return d.target.y; })
+
+            d3.select(this)
+               .select("circle")
+               .transition()
+               .duration(200)
+               .attr("r", function (d) {
+                  return d.r * 1.5;
+               });
+            d3.select(this).select('text')
+               .transition()
+               .duration(300)
+               .style("font-size", "10px")
+               .text(function (d) {
+                  return d.name
+               }
+               );
+            console.log("expand _ Childs")
+            expandChild = true;
+            indexExpandChild = d.index;
+            if (dataChild.length > 0) {
+               var newChilds = data.nodes[indexExpandChild].childs;
+               console.warn("Inicio  :", dataChild);
+               let dataInit = dataChild;
+
+               newChilds.forEach(element => {
+                  if (!dataChild.includes(element)) {
+                     dataChild.push(element);
+                     console.warn("Agregando CHILDS:", data.nodes[indexExpandChild].childs);
+                  }
+                  console.log("Agregado - ", element);
+               });
+               // console.warn("AGREGADO CHILDS:", data.nodes[indexExpandChild].childs);
+               // //dataChild, data.nodes[indexExpandChild].childs = dataInit;
+               // console.warn("Copiado :", newChilds);
+               // console.warn("Final :", dataChild, data.nodes[indexExpandChild].childs);
+               // console.warn("Negocios _Expand_childs DATA CHILD 0 ", data.nodes[indexExpandChild].childs);
+            } else {
+
+               data.nodes[indexExpandChild].childs.forEach((item) => {
+                  dataChild.push(item);
+               });
+               //negocios
+               console.log("Agregado Completo ", data.nodes[indexExpandChild].childs);
+               console.warn("Negocios _Expand_childs DATA CHILD COMPLETO ", data.nodes[12].childs);
+            }
+            childsList.push(indexExpandChild);
+            console.log(dataChild)
+            console.warn("Negocios _Expand_childs", data.nodes[12].childs);
+         }
+         else if (expand && expandChild && typeof d.links != "undefined" && d.parentChild && (childs.includes(d.index) || dataChild.includes(d.index))) {
+            document.querySelectorAll(`[data-parent='${d.index}']`)
+               .forEach(element => {
+                  element.remove();
+               });
+            data.links = data.links.filter(item => {
+               return item.source.index != d.index
+            })
+            var deleteChilds = data.nodes[d.index].childs;
+            console.warn(deleteChilds);
+            dataChild = dataChild.filter(item => {
+               return !deleteChilds.includes(item)
+            })
+            console.warn(dataChild);
+            //delete childsList[d.index]
+            childsList.splice(childsList.indexOf(d.index), 1);
+            console.log(dataChild)
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).start();
+            link = d3.select('.lines').selectAll("line.link")
+               .data(data.links)//data
+               .enter().append("svg:line")
+               .attr("class", function (d) { return "link" + d.value + ""; })
+               .attr("x1", function (d) {
+                  console.log(d.source.x);
+                  return d.source.x;
+               })
+               .attr("y1", function (d) { return d.source.y; })
+               .attr("x2", function (d) { return d.target.x; })
+               .attr("y2", function (d) { return d.target.y; })
+            d3.select(this).select('text')
+               .transition()
+               .duration(300)
+               .text(function (d) {
+                  if (d.parent || d.parentChild || dataChild.includes(d.index)) {
+                     return d.name
+                  }
+                  else {
+                     return "--"
+                  }
+               })
+               .style("font-size", function (d) {
+                  if (d.parent == true) {
+                     return "16px";
+                  } else {
+                     return "15px";
+                  }
+               })
+            d3.select(this).select('circle')
+               .transition()
+               .duration(200)
+               .attr("r", function (d) {
+                  return d.r;
+               });
+            d3.select(this).select('text')
+               .transition()
+               .duration(300)
+               .style("font-size", function (d) {
+                  if (d.parent == true) {
+                     return "16px";
+                  } else {
+                     return "15px";
+                  }
+               })
+               .text(function (d) {
+                  return d.name
+               }
+               );
+            console.log("Cerrar _ Childs")
+            if (dataChild.length == 0) {
+               expandChild = false;
+            }
+            indexExpandChild = -1;
+            console.log('childs', childs)
+         }
+         else if (!expand && typeof d.parent != "undefined" && d.parent == true) {
+            if (d.parentChild == true && typeof d.clickImage != "undefined") {
+               document.querySelector('img').setAttribute('src', d.clickImage);
+            }
+            // if (dataChild.length == 0 && expand == true) {
+            //    data = data2;
+            //    console.log("cambiado")
+            // }
+            d.links.forEach(element => {
+               data.links.push(element);
+            });
+            force.links(data.links).start();
+            // console.warn(d.links);
+            vis.selectAll("line").remove()
+            force.nodes(data.nodes).links(data.links).charge(-250).start();
+            link = d3.select('.lines').selectAll("line.link")
+               .data(data.links)//data
+               .enter().append("svg:line")
+               .attr("class", function (d) { return "link" + d.value + ""; })
+               .attr("x1", function (d) {
+                  // console.log(d.source.x);
+                  return d.source.x;
+               })
+            console.log("Expand _ Parent")
+            expand = true;
+            indexExpand = d.index;
+            childs = data.nodes[indexExpand].childs;
+         }
+         console.log("expand", expand);
+         console.log("expandChild", expandChild);
+         console.log('Index', indexExpand)
+         console.log('IndexChild', indexExpandChild)
+         console.log('childs', childs, 'index=>', d.index)
+         console.log('DataChilds 2', dataChild)
+         console.log('ListExpandChilds', childsList)
+         console.warn("Negocios", data.nodes[12].childs);
+      })
+      node.on("mouseout", function (d) {
+         //link.style('stroke-width', 2)
+         // d3.select(this).style("fill", "green");
+         if (d.parent == true && !expand) {
+            document.querySelector('img').setAttribute('src', "SVG/home_new.svg");
+         }
+         if (expand && indexExpand > -1) {
+            var image = data.nodes[indexExpand].clickImage;
+            if (typeof image != "undefined") {
+               document.querySelector('img').setAttribute('src', image);
+            }
+         }
+         if (expand && indexExpandChild > -1) {
+            var image = data.nodes[indexExpandChild].clickImage;
+            console.log(image)
+            if (typeof image != "undefined") {
+               document.querySelector('img').setAttribute('src', image);
+            }
+            //document.querySelector('img').setAttribute('src', image);
+         }
+      });
+
+
+      force.on("tick", function (d) {
+         // console.log(d)
+         var k = 6 * d.alpha;
+         data.links.forEach(function (e, i) {
+            e.source.x -= k;
+            e.target.x += k;
+         });
+         link.attr("x1", function (d) { return d.source.x; })
+            .attr("y1", function (d) { return d.source.y; })
+            .attr("x2", function (d) { return d.target.x; })
+            .attr("y2", function (d) { return d.target.y; });
+         node.attr("transform", function (d) { return "translate(" + d.x + "," + d.y + ")"; })
+         node.style("cursor", function (d) {
+            if ((d.parentChild == true && expand && (childs.includes(d.index) || dataChild.includes(d.index)) && typeof d.childs != 'undefined') || d.parent == true) {
+               return "pointer";
+            }
+            else {
+               return "default";
+            }
+         })
+
+         node.style("fill", function (d) {
+            if (expand && d.parentChild == true && typeof d.childs != 'undefined' && (childs.includes(d.index) || dataChild.includes(d.index)) && !childsList.includes(d.index)) {
+               return "#E5B96F"
+            }
+         })
+         text
+            .transition()
+            .duration(300)
+            .style("font-size", function (d) {
+               if (d.parent == true) {
+                  return "16px";
+               } else {
+                  return "15px";
+               }
+            })
+            .text(function (d) {
+               if (d.parent) {
+                  return d.name
+               }
+               else if (childs.includes(d.index) && expand) {
+                  return d.name
+               } else if (dataChild.includes(d.index) && expandChild) {
+                  return d.name
+               } else {
+                  return ""
+               }
+            }
+            )
+         text
+            .attr('text-anchor', 'middle')
+            .attr("dx", function (d) { return d.x - d.r + 10 })
+            .attr("dy", function (d) {
+               if (d.parent == true) {
+                  return d.y - d.r - 25;
+               } else {
+                  return d.y - d.r - 15;
+               }
+            });
+         // node.attr("dx", fu;
+      });
+      //});
+      btnRestart.addEventListener('click', function () {
+         data.links = [];
+         childs = []
+         dataChild = []
+         childsList = []
+         console.warn(data.links);
+         vis.selectAll("line").remove()
+         force.nodes(data.nodes).links(data.links).charge(-150).start();
+         expand = false;
+      })
+   </script>
+</body>
+
+</html>
